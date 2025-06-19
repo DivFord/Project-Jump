@@ -1,16 +1,20 @@
 #pragma once
 
-class PhysicsManager;
-class EntityManager;
+#include <pointerTo.h>
+
+#include "GamePhysicsManager.h"
+#include "EntityManager.h"
+
 class PandaFramework;
+class WindowFramework;
 
 class Game
 {
-	PhysicsManager* physicsManager;
-	EntityManager* entityManager;
+	PT(GamePhysicsManager) physicsManager;
+	PT(EntityManager) entityManager;
 
 public:
 
-	Game(PandaFramework& pandaFramework);
+	Game(PandaFramework& pandaFramework, WindowFramework& windowFramework);
 };
 

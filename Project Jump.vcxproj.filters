@@ -33,7 +33,7 @@
     <ClCompile Include="Core\Game.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PhysicsManager.cpp">
+    <ClCompile Include="Core\GamePhysicsManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Core\EntityManager.cpp">
@@ -45,12 +45,18 @@
     <ClCompile Include="Core\Entities\Component.cpp">
       <Filter>Source Files\Core\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Core\RenderComponents\MeshRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PhysicsComponents\FixedShapePhysicsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PhysicsManager.h">
+    <ClInclude Include="Core\GamePhysicsManager.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\EntityManager.h">
@@ -73,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="Core\Entities\RenderComponent.h">
       <Filter>Header Files\Core\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\RenderComponents\MeshRenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PhysicsComponents\FixedShapePhysicsComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     WindowFramework* window = framework.open_window(windowProps, 0);
 
     //Create the game!
-    Game game(framework);
+    Game game(framework, *window);
 
     //Run the main loop.
     framework.main_loop();

@@ -2,6 +2,12 @@
 
 #include <clockObject.h>
 
+
+EntityManager::EntityManager() : AsyncTask(std::string("Entities"))
+{
+
+}
+
 AsyncTask::DoneStatus EntityManager::do_task()
 {
 	ClockObject* clock = ClockObject::get_global_clock();
@@ -11,4 +17,9 @@ AsyncTask::DoneStatus EntityManager::do_task()
 		entity->update(deltaT);
 	}
 	return DS_cont;
+}
+
+void EntityManager::add_entity(SP<Entity> entity)
+{
+	entities.push_back(entity);
 }

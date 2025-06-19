@@ -7,14 +7,14 @@
 /// A class to set up the Bullet physics world,
 /// and update it each frame.
 /// </summary>
-class PhysicsManager : public AsyncTask
+class GamePhysicsManager : public AsyncTask
 {
 	PT(BulletWorld) bulletWorld;
 	NodePath debug;
 
 public:
-	PhysicsManager();
-	ALLOC_DELETED_CHAIN(PhysicsManager);
+	GamePhysicsManager();
+	ALLOC_DELETED_CHAIN(GamePhysicsManager);
 
 	DoneStatus do_task() override;
 

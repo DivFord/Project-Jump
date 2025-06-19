@@ -75,6 +75,10 @@
     <IncludePath>C:\Panda3D-1.10.15-x64\include;C:\Panda3D-1.10.15-x64\thirdpartylibraries\win-libs-vc14-x64\bullet\include;C:\Users\Div\Documents\GameDev\Panda3D\BulletPlatformerExtension\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Panda3D-1.10.15-x64\lib;C:\Panda3D-1.10.15-x64\thirdpartylibraries\win-libs-vc14-x64\bullet\lib;C:\Users\Div\Documents\GameDev\Panda3D\BulletPlatformerExtension\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Panda3D-1.10.15-x64\include;C:\Panda3D-1.10.15-x64\thirdpartylibraries\win-libs-vc14-x64\bullet\include;C:\Users\Div\Documents\GameDev\Panda3D\BulletPlatformerExtension\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Panda3D-1.10.15-x64\lib;C:\Panda3D-1.10.15-x64\thirdpartylibraries\win-libs-vc14-x64\bullet\lib;C:\Users\Div\Documents\GameDev\Panda3D\BulletPlatformerExtension\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -132,6 +136,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libp3framework.lib;libpanda.lib;libpandaexpress.lib;libp3dtool.lib;libp3dtoolconfig.lib;libp3direct.lib;libpandabullet.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -139,7 +144,9 @@
     <ClCompile Include="Core\Entities\Entity.cpp" />
     <ClCompile Include="Core\EntityManager.cpp" />
     <ClCompile Include="Core\Game.cpp" />
-    <ClCompile Include="Core\PhysicsManager.cpp" />
+    <ClCompile Include="Core\GamePhysicsManager.cpp" />
+    <ClCompile Include="Core\RenderComponents\MeshRenderComponent.cpp" />
+    <ClCompile Include="Core\PhysicsComponents\FixedShapePhysicsComponent.cpp" />
     <ClCompile Include="Project Jump.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +156,11 @@
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\Entities\Message.h" />
     <ClInclude Include="Core\Entities\PhysicsComponent.h" />
-    <ClInclude Include="Core\PhysicsManager.h" />
+    <ClInclude Include="Core\GamePhysicsManager.h" />
     <ClInclude Include="Core\Entities\RenderComponent.h" />
     <ClInclude Include="Core\Entities\VitalComponent.h" />
+    <ClInclude Include="Core\RenderComponents\MeshRenderComponent.h" />
+    <ClInclude Include="Core\PhysicsComponents\FixedShapePhysicsComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
