@@ -6,7 +6,7 @@
 #include <pandaSystem.h>
 #include <windowProperties.h>
 
-#include "Game.h";
+#include "Core/Game.h"
 
 int main(int argc, char* argv[])
 {
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     WindowFramework* window = framework.open_window(windowProps, 0);
 
     //Create the game!
-    Game game();
+    Game game(framework);
 
     //Run the main loop.
     framework.main_loop();

@@ -113,6 +113,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libp3framework.lib;libpanda.lib;libpandaexpress.lib;libp3dtool.lib;libp3dtoolconfig.lib;libp3direct.lib;libpandabullet.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)Assets" "$(TargetDir)\Assets\" /E /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy Assets to Build folder</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -129,23 +135,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="Core\Entities\Component.cpp" />
+    <ClCompile Include="Core\Entities\Entity.cpp" />
+    <ClCompile Include="Core\EntityManager.cpp" />
+    <ClCompile Include="Core\Game.cpp" />
+    <ClCompile Include="Core\PhysicsManager.cpp" />
     <ClCompile Include="Project Jump.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Message.h" />
-    <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="RenderComponent.h" />
-    <ClInclude Include="VitalComponent.h" />
+    <ClInclude Include="Core\Entities\Component.h" />
+    <ClInclude Include="Core\Entities\Entity.h" />
+    <ClInclude Include="Core\EntityManager.h" />
+    <ClInclude Include="Core\Game.h" />
+    <ClInclude Include="Core\Entities\Message.h" />
+    <ClInclude Include="Core\Entities\PhysicsComponent.h" />
+    <ClInclude Include="Core\PhysicsManager.h" />
+    <ClInclude Include="Core\Entities\RenderComponent.h" />
+    <ClInclude Include="Core\Entities\VitalComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
