@@ -7,6 +7,8 @@
 
 #include "PhysicsComponents/FixedShapePhysicsComponent.h"
 #include "RenderComponents/MeshRenderComponent.h"
+#include "PhysicsComponents/PlayerPhysicsComponent.h"
+#include "OtherComponents/PlayerInputComponent.h"
 
 Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 {
@@ -27,6 +29,17 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 	auto render = new MeshRenderComponent(physics->get_node_path(), windowFramework, "Assets/Terrain/Platform_Circle.bam");
 	auto testPlatform = std::make_shared<Entity>(physics, render);
 	entityManager->add_entity(testPlatform);
+
+	//Add the player character.
+	PlayerPhysicsDef def;
+	def.capsuleHeight = 0.5f * 1.7f;
+	auto pcPhysics = new PlayerPhysicsComponent("Player", windowFramework.get_render(), physicsManager, def);
+	auto pcRender = new MeshRenderComponent(pcPhysics->get_node_path(), windowFramework, "Assets/Player/LilPiggy.bam");
+	auto testPC = std::make_shared<Entity>(pcPhysics, pcRender);
+	auto pcInput = new PlayerInputComponent(pandaFramework, windowFramework);
+	pcInput->attach(testPC);
+	entityManager->add_entity(testPC);
+	testPC->set_pos(0, 0, 2);
 
 	//Position the camera.
 	NodePath camera = windowFramework.get_camera_group();

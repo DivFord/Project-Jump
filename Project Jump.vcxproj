@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
     <ClCompile Include="Core\Entities\Component.cpp" />
     <ClCompile Include="Core\Entities\Entity.cpp" />
     <ClCompile Include="Core\EntityManager.cpp" />
@@ -147,9 +148,13 @@
     <ClCompile Include="Core\GamePhysicsManager.cpp" />
     <ClCompile Include="Core\RenderComponents\MeshRenderComponent.cpp" />
     <ClCompile Include="Core\PhysicsComponents\FixedShapePhysicsComponent.cpp" />
+    <ClCompile Include="Core\Bullet Extension\PlatformerControllerNode.cpp" />
+    <ClCompile Include="Core\PhysicsComponents\PlayerPhysicsComponent.cpp" />
+    <ClCompile Include="Core\OtherComponents\PlayerInputComponent.cpp" />
     <ClCompile Include="Project Jump.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
     <ClInclude Include="Core\Entities\Entity.h" />
     <ClInclude Include="Core\EntityManager.h" />
@@ -159,8 +164,12 @@
     <ClInclude Include="Core\GamePhysicsManager.h" />
     <ClInclude Include="Core\Entities\RenderComponent.h" />
     <ClInclude Include="Core\Entities\VitalComponent.h" />
+    <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsDef.h" />
     <ClInclude Include="Core\RenderComponents\MeshRenderComponent.h" />
     <ClInclude Include="Core\PhysicsComponents\FixedShapePhysicsComponent.h" />
+    <ClInclude Include="Core\Bullet Extension\PlatformerControllerNode.h" />
+    <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsComponent.h" />
+    <ClInclude Include="Core\OtherComponents\PlayerInputComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
