@@ -6,23 +6,10 @@
 #include <pandaSystem.h>
 #include <windowProperties.h>
 
-struct Test
-{
-    std::string testStr;
-
-    void test_method(const std::string& test)
-    {
-        testStr = test;
-    }
-};
+#include "Game.h";
 
 int main(int argc, char* argv[])
 {
-    std::string testStr = "Hello";
-    Test test;
-    test.test_method(testStr);
-    std::cout << test.testStr << '\n';
-
     //Open a new window framework.
     PandaFramework framework;
     framework.open_framework(argc, argv);
@@ -33,6 +20,9 @@ int main(int argc, char* argv[])
     //windowProps.set_title(std::string());//BUG: WINDOW TITLE IS GETTING SURROUNDED WITH JUNK CHARACTERS.
     //std::cout << windowProps.get_title() << '\n'; //BUG: CAUSES MEMORY VIOLATION.
     WindowFramework* window = framework.open_window(windowProps, 0);
+
+    //Create the game!
+    Game game();
 
     //Run the main loop.
     framework.main_loop();
