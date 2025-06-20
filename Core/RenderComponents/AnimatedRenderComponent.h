@@ -6,6 +6,7 @@
 #include <nodePath.h>
 
 #include "../Entities/RenderComponent.h"
+#include "../Animation/AnimGraph.h"
 
 class WindowFramework;
 
@@ -14,11 +15,16 @@ class AnimatedRenderComponent : public RenderComponent
 	NodePath model;
 	AnimControlCollection anims;
 	std::vector<PartBundle*> parts;
+	AnimGraph* animGraph;
 
 	void load_bundles(NodePath path);
 
 public:
 	AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset = LVector3f(0));
+	~AnimatedRenderComponent()
+	{
+		delete animGraph;
+	}
 
 	void update(double deltaT) override;
 
@@ -26,5 +32,10 @@ public:
 	void set_anim_speed(const std::string& animName, double rate);
 	void set_anim_relative_time(const std::string& animName, double relativeTime);
 	void set_anim_blend_weight(const std::string& animName, float blendWeight);
+
+	void set_anim_graph(AnimGraph* animGraph)
+	{
+		this->animGraph = animGraph;
+	}
 };
 

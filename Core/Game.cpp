@@ -11,6 +11,9 @@
 #include "RenderComponents/AnimatedRenderComponent.h"
 #include "OtherComponents/PlayerInputComponent.h"
 
+#include "Animation/SingleAnimNode.h"
+#include "Animation/BlendAnimNode.h"
+
 Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 {
 	physicsManager = new GamePhysicsManager();
@@ -41,11 +44,11 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 	pcInput->attach(testPC);
 	entityManager->add_entity(testPC);
 	testPC->set_pos(0, 0, 2);
-	//pcRender->play_anim("Run", true);
-	//pcRender->set_anim_speed("Run", 2.0);
-	//pcRender->set_anim_relative_time("Jump", 0.5);
-	pcRender->play_anim("Idle", true);
-	pcRender->play_anim("Run", true);
+	
+	auto animGraph = new AnimGraph();
+	auto idleAnim = new SingleAnimNode(0, animGraph);
+	animGraph->add_layer(idleAnim);
+	pcRender->set_anim_graph(animGraph);
 
 	//Position the camera.
 	NodePath camera = windowFramework.get_camera_group();

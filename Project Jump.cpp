@@ -7,9 +7,12 @@
 #include <windowProperties.h>
 
 #include "Core/Game.h"
+#include "Core/Config.h"
 
 int main(int argc, char* argv[])
 {
+    InitNewTypes();
+
     //Open a new window framework.
     PandaFramework framework;
     framework.open_framework(argc, argv);

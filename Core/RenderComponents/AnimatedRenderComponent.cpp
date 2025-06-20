@@ -14,7 +14,18 @@ AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFram
 
 void AnimatedRenderComponent::update(double deltaT)
 {
-	//TODO!
+	if (animGraph)
+	{
+		for (int i = 0; i < anims.get_num_anims(); i++)
+		{
+			AnimControl* anim = anims.get_anim(i);
+			if (!anim)
+				continue;
+			float influence = animGraph->get_influence(i);
+			for (auto part : parts)
+				part->set_control_effect(anim, influence);
+		}
+	}
 }
 
 void AnimatedRenderComponent::play_anim(const std::string& animName, bool looping, float blendWeight)

@@ -140,6 +140,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Animation\AnimGraph.cpp" />
+    <ClCompile Include="Core\Animation\AnimNode.cpp" />
+    <ClCompile Include="Core\Animation\BlendAnimNode.cpp" />
     <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp" />
     <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
     <ClCompile Include="Core\Entities\Component.cpp" />
@@ -153,8 +156,14 @@
     <ClCompile Include="Core\PhysicsComponents\PlayerPhysicsComponent.cpp" />
     <ClCompile Include="Core\OtherComponents\PlayerInputComponent.cpp" />
     <ClCompile Include="Project Jump.cpp" />
+    <ClCompile Include="Core\Animation\SingleAnimNode.cpp" />
+    <ClCompile Include="Core\Animation\StateMachineAnimNode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Animation\AnimGraph.h" />
+    <ClInclude Include="Core\Animation\BlendAnimNode.h" />
+    <ClInclude Include="Core\Animation\AnimNode.h" />
+    <ClInclude Include="Core\Config.h" />
     <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />
     <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
@@ -172,6 +181,8 @@
     <ClInclude Include="Core\Bullet Extension\PlatformerControllerNode.h" />
     <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsComponent.h" />
     <ClInclude Include="Core\OtherComponents\PlayerInputComponent.h" />
+    <ClInclude Include="Core\Animation\SingleAnimNode.h" />
+    <ClInclude Include="Core\Animation\StateMachineAnimNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
