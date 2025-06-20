@@ -24,6 +24,6 @@ public:
 
 	virtual void attach(SP<Entity> entity);
 	virtual void update(double deltaT) = 0;
-	virtual bool handle_message(Message message) { return false; }
+	virtual bool handle_message(Message message) { return false; };
 };
 

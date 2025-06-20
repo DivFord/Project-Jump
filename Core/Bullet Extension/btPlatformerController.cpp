@@ -18,27 +18,27 @@ static btVector3 getNormalizedVector(const btVector3& v)
 	if (v.length() > SIMD_EPSILON)
 		n = v.normalized();
 	return n;
-}
+};
 
 //Returns the reflection direction of a ray going 'direction' hitting a surface with normal 'normal'.
 //From: http://www-cs-students.stanford.edu/~adityagp/final/node3.html
 static btVector3 computeReflectionDirection(const btVector3& direction, const btVector3& normal)
 {
 	return direction - (btScalar(2.0) * direction.dot(normal)) * normal;
-}
+};
 
 //Returns the portion of 'direction' that is parallel to 'normal'.
 static btVector3 parallelComponent(const btVector3& direction, const btVector3& normal)
 {
 	btScalar magnitude = direction.dot(normal);
 	return normal * magnitude;
-}
+};
 
 //Returns the portion of 'direction' that is perpindicular to 'normal'
 static btVector3 perpendicularComponent(const btVector3& direction, const btVector3& normal)
 {
 	return direction - parallelComponent(direction, normal);
-}
+};
 
 static btQuaternion getRotation(btVector3& v0, btVector3& v1)
 {
@@ -48,13 +48,13 @@ static btQuaternion getRotation(btVector3& v0, btVector3& v1)
 		return q;
 	}
 	return shortestArcQuatNormalize2(v0, v1);
-}
+};
 
 static bool needsCollision(const btCollisionObject* body0, const btCollisionObject* body1)
 {
 	bool collides = (body0->getBroadphaseHandle()->m_collisionFilterGroup & body1->getBroadphaseHandle()->m_collisionFilterMask) != 0;
 	return collides && (body1->getBroadphaseHandle()->m_collisionFilterGroup & body0->getBroadphaseHandle()->m_collisionFilterMask);
-}
+};
 #pragma endregion
 
 #pragma region Callback Class
@@ -66,7 +66,7 @@ public:
 	{
 		m_collisionFilterGroup = me->getBroadphaseHandle()->m_collisionFilterGroup;
 		m_collisionFilterMask = me->getBroadphaseHandle()->m_collisionFilterMask;
-	}
+	};
 
 	virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 	{
@@ -94,7 +94,7 @@ public:
 		}
 
 		return ClosestConvexResultCallback::addSingleResult(convexResult, normalInWorldSpace);
-	}
+	};
 
 protected:
 	btCollisionObject* m_me;
@@ -133,11 +133,11 @@ btPlatformerController::btPlatformerController(btPairCachingGhostObject* ghostOb
 	setUp(up);
 	setStepHeight(stepHeight);
 	setMaxSlope(btRadians(45.0));
-}
+};
 
 btPlatformerController::~btPlatformerController()
 {
-}
+};
 #pragma endregion
 
 #pragma region btActionInterface Implementation
@@ -145,7 +145,7 @@ void btPlatformerController::updateAction(btCollisionWorld* collisionWorld, btSc
 {
 	preStep(collisionWorld);
 	playerStep(collisionWorld, deltaTime);
-}
+};
 #pragma endregion
 
 #pragma region btCharacterControllerInterface Implementation
@@ -154,7 +154,7 @@ void btPlatformerController::setWalkDirection(const btVector3& walkDirection)
 	m_useWalkDirection = true;
 	m_walkDirection = walkDirection;
 	m_normalizedDirection = getNormalizedVector(m_walkDirection);
-}
+};
 
 void btPlatformerController::setVelocityForTimeInterval(const btVector3& velocity, btScalar timeInterval)
 {
@@ -162,7 +162,7 @@ void btPlatformerController::setVelocityForTimeInterval(const btVector3& velocit
 	m_walkDirection = velocity;
 	m_normalizedDirection = getNormalizedVector(m_walkDirection);
 	m_velocityTimeInterval += timeInterval;
-}
+};
 
 void btPlatformerController::reset(btCollisionWorld* collisionWorld)
 {
@@ -179,7 +179,7 @@ void btPlatformerController::reset(btCollisionWorld* collisionWorld)
 	{
 		cache->removeOverlappingPair(cache->getOverlappingPairArray()[0].m_pProxy0, cache->getOverlappingPairArray()[0].m_pProxy1, collisionWorld->getDispatcher());
 	}
-}
+};
 
 void btPlatformerController::warp(const btVector3& origin)
 {
@@ -187,13 +187,13 @@ void btPlatformerController::warp(const btVector3& origin)
 	xform.setIdentity();
 	xform.setOrigin(origin);
 	m_ghostObject->setWorldTransform(xform);
-}
+};
 
 void btPlatformerController::preStep(btCollisionWorld* collisionWorld)
 {
 	m_currentPosition = m_ghostObject->getWorldTransform().getOrigin();
 	m_targetPosition = m_currentPosition;
-}
+};
 
 void btPlatformerController::playerStep(btCollisionWorld* collisionWorld, btScalar dt)
 {
@@ -235,12 +235,12 @@ void btPlatformerController::playerStep(btCollisionWorld* collisionWorld, btScal
 	m_ghostObject->setWorldTransform(xform);
 
 	resolvePenetration(collisionWorld);
-}
+};
 
 bool btPlatformerController::canJump() const
 {
 	return m_notGroundedTime < m_coyoteTime;
-}
+};
 
 void btPlatformerController::jump(const btVector3& v)
 {
@@ -250,12 +250,12 @@ void btPlatformerController::jump(const btVector3& v)
 	m_notGroundedTime = 1.0f;
 
 	m_jumpAxis = v.length2() == 0 ? m_up : v.normalized();
-}
+};
 
 bool btPlatformerController::onGround() const
 {
 	return (fabs(m_verticalVelocity) < SIMD_EPSILON) && (fabs(m_verticalOffset) < SIMD_EPSILON);
-}
+};
 #pragma endregion
 
 #pragma region Getters and Setters
@@ -280,7 +280,7 @@ void btPlatformerController::setUp(const btVector3& up)
 	btQuaternion orn = rot.inverse() * xform.getRotation();
 	xform.setRotation(orn);
 	m_ghostObject->setWorldTransform(xform);
-}
+};
 
 void btPlatformerController::setLinearVelocity(const btVector3& velocity)
 {
@@ -306,35 +306,35 @@ void btPlatformerController::setLinearVelocity(const btVector3& velocity)
 	}
 	else
 		m_verticalVelocity = 0.0f;
-}
+};
 
 btVector3 btPlatformerController::getLinearVelocity() const
 {
 	return m_walkDirection + (m_verticalVelocity * m_up);
-}
+};
 
 void btPlatformerController::setMaxSlope(btScalar slopeRadians)
 {
 	m_maxSlopeRadians = slopeRadians;
 	m_maxSlopeCosine = btCos(slopeRadians);
-}
+};
 
 btScalar btPlatformerController::getMaxSlope() const
 {
 	return m_maxSlopeRadians;
-}
+};
 
 void btPlatformerController::setGravity(const btVector3& gravity)
 {
 	if (gravity.length2() > 0)
 		setUp(-gravity);
 	m_gravity = gravity.length();
-}
+};
 
 btVector3 btPlatformerController::getGravity() const
 {
 	return -m_gravity * m_up;
-}
+};
 #pragma endregion
 
 #pragma region Internal Methods
@@ -346,7 +346,7 @@ void btPlatformerController::resolvePenetration(btCollisionWorld* collisionWorld
 		numberOfLoops--;
 		m_touchingContact = true;
 	}
-}
+};
 
 bool btPlatformerController::recoverFromPenetration(btCollisionWorld* collisionWorld)
 {
@@ -411,7 +411,7 @@ bool btPlatformerController::recoverFromPenetration(btCollisionWorld* collisionW
 	newTrans.setOrigin(m_currentPosition);
 	m_ghostObject->setWorldTransform(newTrans);
 	return penetration;
-}
+};
 
 void btPlatformerController::stepUp(btCollisionWorld* world)
 {
@@ -462,7 +462,7 @@ void btPlatformerController::stepUp(btCollisionWorld* world)
 		m_currentStepOffset = stepHeight;
 		m_currentPosition = m_targetPosition;
 	}
-}
+};
 
 void btPlatformerController::stepForwardAndStrafe(btCollisionWorld* collisionWorld, const btVector3& walkMove)
 {
@@ -510,7 +510,7 @@ void btPlatformerController::stepForwardAndStrafe(btCollisionWorld* collisionWor
 		if ((m_currentPosition - m_targetPosition).fuzzyZero())
 			break;
 	}
-}
+};
 
 void btPlatformerController::updateTargetPositionBasedOnCollision(const btVector3& hitNormal)
 {
@@ -532,7 +532,7 @@ void btPlatformerController::updateTargetPositionBasedOnCollision(const btVector
 		btVector3 perpComponent = perpendicularDir * btScalar(movementLength);
 		m_targetPosition += perpComponent;
 	}
-}
+};
 
 void btPlatformerController::stepDown(btCollisionWorld* collisionWorld, btScalar dt)
 {
@@ -605,5 +605,5 @@ void btPlatformerController::stepDown(btCollisionWorld* collisionWorld, btScalar
 	//We dropped the full height.
 	else
 		m_currentPosition = m_targetPosition;
-}
+};
 #pragma endregion

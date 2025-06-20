@@ -3,10 +3,12 @@
 #include <vector>
 #include <unordered_map>
 
-#include "AnimNode.h";
+#include "AnimNode.h"
+#include "AnimWeightName.h"
 
 class AnimGraph
 {
+private:
 	struct Layer
 	{
 		AnimNode* rootNode;
@@ -16,7 +18,7 @@ class AnimGraph
 	};
 
 	std::vector<Layer> layers;
-	std::unordered_map<int, float> weightMap;
+	std::unordered_map<AnimWeightName, float> weightMap;
 
 public:
 	AnimGraph() {};
@@ -24,11 +26,13 @@ public:
 	{
 		for (auto layer : layers)
 			delete layer.rootNode;
-	}
+	};
 
 	void add_layer(AnimNode* rootNode, float layerWeight = 1.0f);
 
-	float get_weight(int weightIndex);
+	float get_weight(AnimWeightName weightName);
+	void set_weight(AnimWeightName weightName, float value);
+
 	float get_influence(int animIndex);
 };
 

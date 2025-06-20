@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\AnimGraph.h" />
+    <ClInclude Include="Core\Animation\AnimWeightName.h" />
     <ClInclude Include="Core\Animation\BlendAnimNode.h" />
     <ClInclude Include="Core\Animation\AnimNode.h" />
     <ClInclude Include="Core\Config.h" />

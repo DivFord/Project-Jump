@@ -28,7 +28,7 @@ public:
 		physicsComponent->attach(this);
 		this->renderComponent = renderComponent;
 		renderComponent->attach(this);
-	}
+	};
 
 	~Entity()
 	{
@@ -36,7 +36,7 @@ public:
 		delete renderComponent;
 		for (Component* component : components)
 			delete component;
-	}
+	};
 
 	void update(double deltaT);
 	void handle_message(Message message, bool stop_when_received);

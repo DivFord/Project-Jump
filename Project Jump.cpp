@@ -33,4 +33,4 @@ int main(int argc, char* argv[])
     //Close and exit.
     framework.close_framework();
     return 0;
-}
+};

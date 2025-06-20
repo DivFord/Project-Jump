@@ -58,14 +58,14 @@ PlatformerControllerNode::PlatformerControllerNode(BulletShape* shape, PN_stdflo
     _shape = shape;
 
     // Default collide mask TODO set_into_collide_mask(CollideMask::all_on());
-}
+};
 
 INLINE PlatformerControllerNode::
 ~PlatformerControllerNode() {
 
     delete _character;
     delete _ghost;
-}
+};
 
 void PlatformerControllerNode::
 set_linear_movement(const LVector3& movement, bool is_local) {
@@ -75,7 +75,7 @@ set_linear_movement(const LVector3& movement, bool is_local) {
 
     _linear_movement = movement;
     _linear_movement_is_local = is_local;
-}
+};
 
 /**
  * Assumes the lock(bullet global lock) is held by the caller
@@ -101,7 +101,7 @@ do_sync_p2b(PN_stdfloat dt, int num_substeps) {
     // _character->setVelocityForTimeInterval(v, dt);
     _character->setWalkDirection(v * dt);
     _angular_movement = 0.0f;
-}
+};
 
 /**
  * Assumes the lock(bullet global lock) is held by the caller
@@ -124,7 +124,7 @@ do_sync_b2p() {
         np.set_transform(NodePath(), ts);
         _sync_disable = false;
     }
-}
+};
 
 void PlatformerControllerNode::
 do_transform_changed() {
@@ -159,7 +159,7 @@ do_transform_changed() {
         // Set scale
         _shape->do_set_local_scale(scale);
     }
-}
+};
 
 void PlatformerControllerNode::
 transform_changed() {
@@ -169,11 +169,11 @@ transform_changed() {
     LightMutexHolder holder(BulletWorld::get_global_lock());
 
     do_transform_changed();
-}
+};
 
 BulletShape* PlatformerControllerNode::get_shape() const {
     return _shape;
-}
+};
 
 bool PlatformerControllerNode::do_jump()
 {
@@ -182,26 +182,26 @@ bool PlatformerControllerNode::do_jump()
         return false;
     _character->jump();
     return true;
-}
+};
 
 void PlatformerControllerNode::set_gravity(PN_stdfloat gravity)
 {
     LightMutexHolder holder(BulletWorld::get_global_lock());
     _character->setGravity(up_vectors[_up] * -(btScalar)gravity);
-}
+};
 
 PN_stdfloat PlatformerControllerNode::get_gravity() const
 {
     LightMutexHolder holder(BulletWorld::get_global_lock());
     return -(PN_stdfloat)_character->getGravity()[_up];
-}
+};
 
 INLINE btPairCachingGhostObject* PlatformerControllerNode::get_ghost() const
 {
     return _ghost;
-}
+};
 
 INLINE btCharacterControllerInterface* PlatformerControllerNode::get_character() const
 {
     return _character;
-}
+};

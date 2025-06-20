@@ -13,7 +13,9 @@ struct Message
 		UNSET,
 
 		MOVE_INPUT,
-		JUMP_INPUT
+		JUMP_INPUT,
+
+		MOVE_SPEED,
 	};
 
 	const MessageType type;

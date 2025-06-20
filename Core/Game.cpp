@@ -44,11 +44,15 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 	pcInput->attach(testPC);
 	entityManager->add_entity(testPC);
 	testPC->set_pos(0, 0, 2);
-	
+
 	auto animGraph = new AnimGraph();
-	auto idleAnim = new SingleAnimNode(0, animGraph);
-	animGraph->add_layer(idleAnim);
+	auto idleAnim = new SingleAnimNode(pcRender->get_anim_index("Idle"), animGraph);
+	auto runAnim = new SingleAnimNode(pcRender->get_anim_index("Run"), animGraph);
+	auto blendAnim = new BlendAnimNode(idleAnim, runAnim, AnimWeightName::MOVE_SPEED, animGraph);
+	animGraph->add_layer(blendAnim);
 	pcRender->set_anim_graph(animGraph);
+	pcRender->play_anim("Idle", true);
+	pcRender->play_anim("Run", true);
 
 	//Position the camera.
 	NodePath camera = windowFramework.get_camera_group();
@@ -68,4 +72,4 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 
 	//Set shader generator.
 	windowFramework.get_render().set_shader_auto();
-}
+};

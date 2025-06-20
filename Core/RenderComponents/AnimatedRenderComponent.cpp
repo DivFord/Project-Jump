@@ -4,13 +4,15 @@
 #include <auto_bind.h>
 #include <partBundleNode.h>
 
+//#include <stdio.h>
+
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset) : RenderComponent()
 {
 	model = window.load_model(parentNode, modelFilepath);
 	model.set_pos(offset);
 	auto_bind(model.node(), anims, ~0);
 	load_bundles(model);
-}
+};
 
 void AnimatedRenderComponent::update(double deltaT)
 {
@@ -24,9 +26,35 @@ void AnimatedRenderComponent::update(double deltaT)
 			float influence = animGraph->get_influence(i);
 			for (auto part : parts)
 				part->set_control_effect(anim, influence);
+
+			//std::cout << anim->get_name() << " " << influence << " " << (anim->is_playing() ? "Playing" : "Not Playing") << '\n';
 		}
 	}
-}
+};
+
+bool AnimatedRenderComponent::handle_message(Message message)
+{
+	switch (message.type)
+	{
+	case Message::MessageType::MOVE_SPEED:
+		if (animGraph)
+			animGraph->set_weight(AnimWeightName::MOVE_SPEED, message.valueA);
+		return true;
+
+	default:
+		return false;
+	}
+};
+
+int AnimatedRenderComponent::get_anim_index(const std::string& animName)
+{
+	for (int i = 0; i < anims.get_num_anims(); i++)
+	{
+		if (anims.get_anim_name(i) == animName)
+			return i;
+	}
+	return -1;
+};
 
 void AnimatedRenderComponent::play_anim(const std::string& animName, bool looping, float blendWeight)
 {
@@ -48,7 +76,7 @@ void AnimatedRenderComponent::play_anim(const std::string& animName, bool loopin
 		anim->loop(true);
 	else
 		anim->play();
-}
+};
 
 void AnimatedRenderComponent::set_anim_speed(const std::string& animName, double rate)
 {
@@ -60,7 +88,7 @@ void AnimatedRenderComponent::set_anim_speed(const std::string& animName, double
 	}
 
 	anim->set_play_rate(rate);
-}
+};
 
 void AnimatedRenderComponent::set_anim_relative_time(const std::string& animName, double relativeTime)
 {
@@ -73,7 +101,7 @@ void AnimatedRenderComponent::set_anim_relative_time(const std::string& animName
 
 	double frame = relativeTime * anim->get_num_frames();
 	anim->pose(frame);
-}
+};
 
 void AnimatedRenderComponent::set_anim_blend_weight(const std::string& animName, float blendWeight)
 {
@@ -90,7 +118,7 @@ void AnimatedRenderComponent::set_anim_blend_weight(const std::string& animName,
 		blendWeight = 1;
 	for (auto part : parts)
 		part->set_control_effect(anim, blendWeight);
-}
+};
 
 void AnimatedRenderComponent::load_bundles(NodePath path)
 {
@@ -111,4 +139,4 @@ void AnimatedRenderComponent::load_bundles(NodePath path)
 
 	for (int i = 0; i < path.get_num_children(); i++)
 		load_bundles(path.get_child(i));
-}
+};

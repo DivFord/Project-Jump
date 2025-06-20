@@ -5,4 +5,4 @@
 static void InitNewTypes()
 {
 	PlatformerControllerNode::init_type();
-}
+};

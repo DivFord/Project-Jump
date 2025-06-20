@@ -152,5 +152,8 @@
     <ClInclude Include="Core\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Animation\AnimWeightName.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

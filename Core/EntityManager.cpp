@@ -6,7 +6,7 @@
 EntityManager::EntityManager() : AsyncTask(std::string("Entities"))
 {
 
-}
+};
 
 AsyncTask::DoneStatus EntityManager::do_task()
 {
@@ -17,9 +17,9 @@ AsyncTask::DoneStatus EntityManager::do_task()
 		entity->update(deltaT);
 	}
 	return DS_cont;
-}
+};
 
 void EntityManager::add_entity(SP<Entity> entity)
 {
 	entities.push_back(entity);
-}
+};

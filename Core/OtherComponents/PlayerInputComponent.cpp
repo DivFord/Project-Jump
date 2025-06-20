@@ -4,7 +4,7 @@ void handle_key(const Event* eventPtr, void* playerInputPtr)
 {
 	PlayerInputComponent* playerInput = static_cast<PlayerInputComponent*>(playerInputPtr);
 	playerInput->set_key(eventPtr->get_name());
-}
+};
 
 PlayerInputComponent::PlayerInputComponent(PandaFramework& framework, WindowFramework& window) : Component()
 {
@@ -27,7 +27,7 @@ PlayerInputComponent::PlayerInputComponent(PandaFramework& framework, WindowFram
 void PlayerInputComponent::update(double deltaT)
 {
 	send_message(Message(Message::MessageType::MOVE_INPUT, get_move()), true);
-}
+};
 
 void PlayerInputComponent::set_key(std::string keyName)
 {

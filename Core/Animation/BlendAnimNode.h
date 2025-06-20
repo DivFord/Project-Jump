@@ -7,10 +7,10 @@ class BlendAnimNode : public AnimNode
 {
 	AnimNode* leftNode;
 	AnimNode* rightNode;
-	int weightIndex;
+	AnimWeightName weightName;
 
 public:
-	BlendAnimNode(AnimNode* leftNode, AnimNode* rightNode, int weightIndex, AnimGraph* graph);
+	BlendAnimNode(AnimNode* leftNode, AnimNode* rightNode, AnimWeightName weightName, AnimGraph* graph);
 	~BlendAnimNode();
 
 	float get_influence(int animIndex) override;

@@ -70,7 +70,7 @@ public:
 	void debugDraw(btIDebugDraw* debugDrawer) {};
 
 	void setUp(const btVector3& up);
-	const btVector3& getUp() { return m_up; }
+	const btVector3& getUp() { return m_up; };
 
 	/// This should probably be called setPositionIncrementPerSimulatorStep.
 	/// This is neither a direction nor a velocity, but the amount to
@@ -95,8 +95,8 @@ public:
 	void preStep(btCollisionWorld* collisionWorld);
 	void playerStep(btCollisionWorld* collisionWorld, btScalar dt);
 
-	void setStepHeight(btScalar h) { m_stepHeight = h; }
-	btScalar getStepHeight() const { return m_stepHeight; }
+	void setStepHeight(btScalar h) { m_stepHeight = h; };
+	btScalar getStepHeight() const { return m_stepHeight; };
 
 	/// The max slope determines the maximum angle that the controller can walk up.
 	/// The slope angle is measured in radians.
@@ -113,7 +113,7 @@ public:
 	void setGravity(const btVector3& gravity);
 	btVector3 getGravity() const;
 
-	void setCoyoteTime(btScalar value) { m_coyoteTime = value; }
+	void setCoyoteTime(btScalar value) { m_coyoteTime = value; };
 
-	btPairCachingGhostObject* getGhostObject() { return m_ghostObject; }
+	btPairCachingGhostObject* getGhostObject() { return m_ghostObject; };
 };

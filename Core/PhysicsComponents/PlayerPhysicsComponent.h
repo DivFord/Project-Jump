@@ -24,6 +24,8 @@ class PlayerPhysicsComponent : public PhysicsComponent
 	float decceleration;
 	LVector2f currentMove;
 	LVector2f targetMove;
+	LVector3f prevPos;
+	float prevSpeed;
 	float gravity;
 	float currentVerticalVelocity;
 	float jumpInputTimer;

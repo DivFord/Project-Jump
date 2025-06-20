@@ -24,9 +24,12 @@ public:
 	~AnimatedRenderComponent()
 	{
 		delete animGraph;
-	}
+	};
 
 	void update(double deltaT) override;
+	bool handle_message(Message message) override;
+
+	int get_anim_index(const std::string& animName);
 
 	void play_anim(const std::string& animName, bool looping = false, float blendWeight = 1);
 	void set_anim_speed(const std::string& animName, double rate);
@@ -36,6 +39,6 @@ public:
 	void set_anim_graph(AnimGraph* animGraph)
 	{
 		this->animGraph = animGraph;
-	}
+	};
 };
 

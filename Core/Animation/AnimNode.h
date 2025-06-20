@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 
+#include "AnimWeightName.h"
+
 class AnimGraph;
 
 class AnimNode
@@ -9,7 +11,7 @@ class AnimNode
 	AnimGraph* graph;
 
 protected:
-	float get_weight(int weightIndex);
+	float get_weight(AnimWeightName weightName);
 
 public:
 	AnimNode(AnimGraph* graph);

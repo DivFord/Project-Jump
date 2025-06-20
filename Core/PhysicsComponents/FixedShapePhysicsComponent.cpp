@@ -32,7 +32,7 @@ static PT(BulletShape) make_shape(ShapeDef& shape)
 		printf("Shape type not recognised!");
 		return new BulletSphereShape(1.0f);
 	}
-}
+};
 
 FixedShapePhysicsComponent::FixedShapePhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, ShapeDef shape)
 {
@@ -42,4 +42,4 @@ FixedShapePhysicsComponent::FixedShapePhysicsComponent(std::string entityName, N
 
 	nodePath = render.attach_new_node(rigidbody);
 	physicsManager->attach(rigidbody);
-}
+};

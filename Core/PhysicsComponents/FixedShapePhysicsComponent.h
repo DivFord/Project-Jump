@@ -24,14 +24,14 @@ struct ShapeDef
 	float depth;
 	LVector3f pos;
 
-	ShapeDef(Type type, float width, float height = 0, float depth = 0, LVector3f pos = LVector3f(0,0,0))
+	ShapeDef(Type type, float width, float height = 0, float depth = 0, LVector3f pos = LVector3f(0, 0, 0))
 	{
 		this->type = type;
 		this->width = width;
 		this->height = height;
 		this->depth = depth;
 		this->pos = pos;
-	}
+	};
 };
 
 class FixedShapePhysicsComponent : public PhysicsComponent
