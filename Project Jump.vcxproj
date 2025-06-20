@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp" />
     <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
     <ClCompile Include="Core\Entities\Component.cpp" />
     <ClCompile Include="Core\Entities\Entity.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Project Jump.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />
     <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
     <ClInclude Include="Core\Entities\Entity.h" />

@@ -5,6 +5,7 @@
 void Entity::update(double deltaT)
 {
 	physicsComponent->update(deltaT);
+	renderComponent->update(deltaT);
 	for (auto component : components)
 		component->update(deltaT);
 };

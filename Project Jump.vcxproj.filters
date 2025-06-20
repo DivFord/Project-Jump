@@ -63,6 +63,9 @@
     <ClCompile Include="Core\OtherComponents\PlayerInputComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\OtherComponents\PlayerInputComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,5 +15,4 @@ public:
 	PhysicsComponent() : VitalComponent() {};
 
 	virtual NodePath get_node_path() = 0;
-	virtual void update(double deltaT) = 0;
 };

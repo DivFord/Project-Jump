@@ -25,7 +25,9 @@ public:
 	{
 		this->entity = entity;
 		on_attach();
-	}
+	};
 
-	virtual bool handle_message(Message message) { return false; }
+	virtual void update(double deltaT) {};
+
+	virtual bool handle_message(Message message) { return false; };
 };
