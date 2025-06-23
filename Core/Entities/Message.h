@@ -16,6 +16,8 @@ struct Message
 		JUMP_INPUT,
 
 		MOVE_SPEED,
+		VERT_SPEED,
+		GROUND_DIST,
 	};
 
 	const MessageType type;

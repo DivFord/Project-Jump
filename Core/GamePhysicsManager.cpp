@@ -28,6 +28,16 @@ LVector3 GamePhysicsManager::get_gravity()
 	return bulletWorld->get_gravity();
 };
 
+BulletClosestHitRayResult GamePhysicsManager::ray_cast(const LPoint3f& start, const LVector3f& direction, const CollideMask& mask)
+{
+	return bulletWorld->ray_test_closest(start, start + direction, mask);
+};
+
+BulletClosestHitRayResult GamePhysicsManager::line_cast(const LPoint3f& start, const LPoint3f& end, const CollideMask& mask)
+{
+	return bulletWorld->ray_test_closest(start, end, mask);
+};
+
 BulletClosestHitSweepResult GamePhysicsManager::sweep_test(BulletShape* shape, const TransformState& from_ts, const TransformState& to_ts, const CollideMask& mask)
 {
 	return bulletWorld->sweep_test_closest(shape, from_ts, to_ts, mask);

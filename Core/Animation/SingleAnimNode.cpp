@@ -1,13 +1,19 @@
 #include "SingleAnimNode.h"
 
-SingleAnimNode::SingleAnimNode(int animIndex, AnimGraph* graph) : AnimNode(graph)
+SingleAnimNode::SingleAnimNode(int animIndex, bool looping, AnimGraph* graph) : AnimNode(graph)
 {
 	animID = animIndex;
+	this->looping = looping;
 };
 
-float SingleAnimNode::get_influence(int animIndex)
+float SingleAnimNode::get_influence(int animIndex, CurrentAnim& currentAnim)
 {
-	if (animIndex == animID)
+	if (animIndex == animID) {
+		currentAnim.play_anim(looping);
 		return 1.0f;
-	return 0.0f;
+	}
+	else {
+		currentAnim.stop_anim();
+		return 0.0f;
+	}
 };

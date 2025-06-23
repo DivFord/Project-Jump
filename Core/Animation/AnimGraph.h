@@ -5,6 +5,7 @@
 
 #include "AnimNode.h"
 #include "AnimWeightName.h"
+#include "CurrentAnim.h"
 
 class AnimGraph
 {
@@ -33,6 +34,6 @@ public:
 	float get_weight(AnimWeightName weightName);
 	void set_weight(AnimWeightName weightName, float value);
 
-	float get_influence(int animIndex);
+	float get_influence(int animIndex, CurrentAnim& currentAnim);
 };
 

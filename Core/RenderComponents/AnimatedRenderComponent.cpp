@@ -4,6 +4,8 @@
 #include <auto_bind.h>
 #include <partBundleNode.h>
 
+#include "../Animation/CurrentAnim.h"
+
 //#include <stdio.h>
 
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset) : RenderComponent()
@@ -23,7 +25,8 @@ void AnimatedRenderComponent::update(double deltaT)
 			AnimControl* anim = anims.get_anim(i);
 			if (!anim)
 				continue;
-			float influence = animGraph->get_influence(i);
+			CurrentAnim currentAnim(anim);
+			float influence = animGraph->get_influence(i, currentAnim);
 			for (auto part : parts)
 				part->set_control_effect(anim, influence);
 
@@ -34,16 +37,11 @@ void AnimatedRenderComponent::update(double deltaT)
 
 bool AnimatedRenderComponent::handle_message(Message message)
 {
-	switch (message.type)
-	{
-	case Message::MessageType::MOVE_SPEED:
-		if (animGraph)
-			animGraph->set_weight(AnimWeightName::MOVE_SPEED, message.valueA);
-		return true;
-
-	default:
+	if (weightBindings.count(message.type) == 0)
 		return false;
-	}
+	WeightBinding binding = weightBindings[message.type];
+	float value = InterpolationFunctions::interpolate(binding.type, binding.min, binding.max, message.valueA);
+	animGraph->set_weight(binding.weightName, value);
 };
 
 int AnimatedRenderComponent::get_anim_index(const std::string& animName)
@@ -55,6 +53,11 @@ int AnimatedRenderComponent::get_anim_index(const std::string& animName)
 	}
 	return -1;
 };
+
+void AnimatedRenderComponent::add_weight_binding(Message::MessageType messageType, AnimWeightName weightName, InterpolationFunctions::Type interpolationType, float min, float max)
+{
+	weightBindings[messageType] = WeightBinding(interpolationType, min, max, weightName);
+}
 
 void AnimatedRenderComponent::play_anim(const std::string& animName, bool looping, float blendWeight)
 {
@@ -77,7 +80,7 @@ void AnimatedRenderComponent::play_anim(const std::string& animName, bool loopin
 	else
 		anim->play();
 };
-
+/*
 void AnimatedRenderComponent::set_anim_speed(const std::string& animName, double rate)
 {
 	AnimControl* anim = anims.find_anim(animName);
@@ -102,6 +105,7 @@ void AnimatedRenderComponent::set_anim_relative_time(const std::string& animName
 	double frame = relativeTime * anim->get_num_frames();
 	anim->pose(frame);
 };
+*/
 
 void AnimatedRenderComponent::set_anim_blend_weight(const std::string& animName, float blendWeight)
 {

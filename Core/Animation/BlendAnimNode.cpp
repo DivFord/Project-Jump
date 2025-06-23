@@ -15,13 +15,14 @@ BlendAnimNode::~BlendAnimNode()
 	delete rightNode;
 };
 
-float BlendAnimNode::get_influence(int animIndex)
+float BlendAnimNode::get_influence(int animIndex, CurrentAnim& currentAnim)
 {
 	float weight = get_weight(weightName);
 	if (weight <= 0)
-		return leftNode->get_influence(animIndex);
+		return leftNode->get_influence(animIndex, currentAnim);
 	else if (weight >= 1)
-		return rightNode->get_influence(animIndex);
+		return rightNode->get_influence(animIndex, currentAnim);
 	else
-		return (leftNode->get_influence(animIndex) * (1.0f - weight)) + (rightNode->get_influence(animIndex) * weight);
+		return (leftNode->get_influence(animIndex, currentAnim) * (1.0f - weight))
+				+ (rightNode->get_influence(animIndex, currentAnim) * weight);
 };

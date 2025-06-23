@@ -9,4 +9,6 @@ enum class AnimWeightName
 	FREE_5,
 
 	MOVE_SPEED,
+	VERT_SPEED,
+	GROUND_DIST,
 };

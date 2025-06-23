@@ -18,10 +18,10 @@ void AnimGraph::set_weight(AnimWeightName weightName, float value)
 	weightMap[weightName] = value;
 };
 
-float AnimGraph::get_influence(int animIndex)
+float AnimGraph::get_influence(int animIndex, CurrentAnim& currentAnim)
 {
 	float influence = 0.0;
 	for (auto layer : layers)
-		influence += layer.weight * layer.rootNode->get_influence(animIndex);
+		influence += layer.weight * layer.rootNode->get_influence(animIndex, currentAnim);
 	return influence;
 };

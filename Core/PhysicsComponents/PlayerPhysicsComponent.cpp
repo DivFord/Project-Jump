@@ -9,6 +9,8 @@
 
 #include <stdio.h>
 
+const static float downRayDist = 1.0f;
+
 PlayerPhysicsComponent::PlayerPhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, PlayerPhysicsDef def)
 {
 	this->physicsManager = physicsManager;
@@ -47,15 +49,22 @@ void PlayerPhysicsComponent::update(double deltaT)
 
 	auto newPos = charControl->get_transform()->get_pos();
 	float speed = 0;
+	float vertSpd = 0;
 	if (prevPos != newPos) {
 		auto move = prevPos - newPos;
+		vertSpd = move.get_z();
+		move.set_z(0);
 		speed = (move / deltaT).length();
 	}
 	if (__is_nanf(speed))
 		speed = 0.0f;
 	prevSpeed = (prevSpeed + speed) / 2.0f;
 	entity->handle_message(Message(Message::MessageType::MOVE_SPEED, prevSpeed), true);
+	entity->handle_message(Message(Message::MessageType::VERT_SPEED, vertSpd), true);
 	prevPos = newPos;
+
+	auto downRayResult = physicsManager->ray_cast(newPos - LVector3f(0,0,capsule->get_height()), LVector3f(0, 0, -downRayDist));
+	entity->handle_message(Message(Message::MessageType::GROUND_DIST, downRayResult.get_hit_fraction()), true);
 };
 
 void PlayerPhysicsComponent::update_move(double deltaT)

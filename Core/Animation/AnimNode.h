@@ -3,6 +3,7 @@
 #include <unordered_map>
 
 #include "AnimWeightName.h"
+#include "CurrentAnim.h"
 
 class AnimGraph;
 
@@ -16,5 +17,5 @@ protected:
 public:
 	AnimNode(AnimGraph* graph);
 
-	virtual float get_influence(int animIndex) = 0;
+	virtual float get_influence(int animIndex, CurrentAnim& currentAnim) = 0;
 };

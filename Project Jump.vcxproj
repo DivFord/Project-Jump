@@ -155,6 +155,9 @@
     <ClCompile Include="Core\Bullet Extension\PlatformerControllerNode.cpp" />
     <ClCompile Include="Core\PhysicsComponents\PlayerPhysicsComponent.cpp" />
     <ClCompile Include="Core\OtherComponents\PlayerInputComponent.cpp" />
+    <ClCompile Include="Core\Animation\InterpolationFunctions.cpp" />
+    <ClCompile Include="Core\Animation\DrivenPoseAnimNode.cpp" />
+    <ClCompile Include="Core\Animation\CurrentAnim.cpp" />
     <ClCompile Include="Project Jump.cpp" />
     <ClCompile Include="Core\Animation\SingleAnimNode.cpp" />
     <ClCompile Include="Core\Animation\StateMachineAnimNode.cpp" />
@@ -184,6 +187,9 @@
     <ClInclude Include="Core\OtherComponents\PlayerInputComponent.h" />
     <ClInclude Include="Core\Animation\SingleAnimNode.h" />
     <ClInclude Include="Core\Animation\StateMachineAnimNode.h" />
+    <ClInclude Include="Core\Animation\InterpolationFunctions.h" />
+    <ClInclude Include="Core\Animation\DrivenPoseAnimNode.h" />
+    <ClInclude Include="Core\Animation\CurrentAnim.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

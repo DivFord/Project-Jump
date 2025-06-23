@@ -13,6 +13,6 @@ public:
 	BlendAnimNode(AnimNode* leftNode, AnimNode* rightNode, AnimWeightName weightName, AnimGraph* graph);
 	~BlendAnimNode();
 
-	float get_influence(int animIndex) override;
+	float get_influence(int animIndex, CurrentAnim& currentAnim) override;
 };
 
