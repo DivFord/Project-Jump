@@ -16,6 +16,7 @@ struct Message
 		JUMP_INPUT,
 
 		MOVE_SPEED,
+		MOVE_DIR,
 		VERT_SPEED,
 		GROUND_DIST,
 	};

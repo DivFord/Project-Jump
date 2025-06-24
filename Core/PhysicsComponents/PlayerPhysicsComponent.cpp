@@ -60,6 +60,7 @@ void PlayerPhysicsComponent::update(double deltaT)
 		speed = 0.0f;
 	prevSpeed = (prevSpeed + speed) / 2.0f;
 	entity->handle_message(Message(Message::MessageType::MOVE_SPEED, prevSpeed), true);
+	entity->handle_message(Message(Message::MessageType::MOVE_DIR, currentMove.normalized()), true);
 	entity->handle_message(Message(Message::MessageType::VERT_SPEED, vertSpd), true);
 	prevPos = newPos;
 

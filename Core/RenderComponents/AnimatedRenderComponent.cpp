@@ -18,6 +18,17 @@ AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFram
 
 void AnimatedRenderComponent::update(double deltaT)
 {
+	float rot = model.get_h();
+	if (rot != targetRotation)
+	{
+		float toTarget = targetRotation - rot;
+		if (abs(toTarget) > 180)
+			toTarget += (toTarget < 0 ? 360 : -360);
+		
+		rot += toTarget * fminf(1.0f, deltaT * rotationSpeed);
+		model.set_h(rot);
+	}
+
 	if (animGraph)
 	{
 		animGraph->update(float(deltaT));
@@ -39,6 +50,13 @@ void AnimatedRenderComponent::update(double deltaT)
 
 bool AnimatedRenderComponent::handle_message(Message message)
 {
+	if (message.type == Message::MessageType::MOVE_DIR)
+	{
+		LVector3f dir(message.valueA, -message.valueB, 0);
+		targetRotation = dir.signed_angle_deg(LVector3f(0, 1, 0), LVector3f(0, 0, 1));
+		return true;
+	}
+
 	if (weightBindings.count(message.type) == 0)
 		return false;
 	WeightBinding binding = weightBindings[message.type];

@@ -28,6 +28,8 @@ class AnimatedRenderComponent : public RenderComponent
 	};
 
 	NodePath model;
+	float rotationSpeed = 10.0f;
+	float targetRotation = 0.0f;
 	AnimControlCollection anims;
 	std::vector<PartBundle*> parts;
 	AnimGraph* animGraph;
