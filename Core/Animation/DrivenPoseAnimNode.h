@@ -2,6 +2,12 @@
 
 #include "AnimNode.h"
 
+/// <summary>
+/// An implementation of AnimNode for a single animation clip which
+/// doesn't play normally, but sets its playback time using a weight variable.
+/// For example, the playback position of a landing animation could be driven
+/// by the distance from the ground, to ensure it always lines up correctly.
+/// </summary>
 class DrivenPoseAnimNode : public AnimNode
 {
 	int animID = -1;

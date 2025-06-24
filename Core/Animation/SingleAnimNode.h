@@ -2,6 +2,9 @@
 
 #include "AnimNode.h"
 
+/// <summary>
+/// An implementation of AnimNode that just plays a single anim.
+/// </summary>
 class SingleAnimNode : public AnimNode
 {
 	int animID = -1;

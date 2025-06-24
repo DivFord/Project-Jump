@@ -6,8 +6,6 @@
 
 #include "../Animation/CurrentAnim.h"
 
-//#include <stdio.h>
-
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset) : RenderComponent()
 {
 	model = window.load_model(parentNode, modelFilepath);
@@ -42,8 +40,6 @@ void AnimatedRenderComponent::update(double deltaT)
 			float influence = animGraph->get_influence(i, currentAnim);
 			for (auto part : parts)
 				part->set_control_effect(anim, influence);
-
-			//std::cout << anim->get_name() << " " << influence << " " << (anim->is_playing() ? "Playing" : "Not Playing") << '\n';
 		}
 	}
 };
@@ -81,6 +77,9 @@ void AnimatedRenderComponent::add_weight_binding(Message::MessageType messageTyp
 
 void AnimatedRenderComponent::play_anim(const std::string& animName, bool looping, float blendWeight)
 {
+	if (animGraph)
+		printf("Calling play_anim on AnimatedRenderComponents that have an assigned graph may produce strange results.");
+
 	AnimControl* anim = anims.find_anim(animName);
 	if (!anim)
 	{
@@ -99,49 +98,6 @@ void AnimatedRenderComponent::play_anim(const std::string& animName, bool loopin
 		anim->loop(true);
 	else
 		anim->play();
-};
-/*
-void AnimatedRenderComponent::set_anim_speed(const std::string& animName, double rate)
-{
-	AnimControl* anim = anims.find_anim(animName);
-	if (!anim)
-	{
-		printf(("Anim " + animName + " not found.").c_str());
-		return;
-	}
-
-	anim->set_play_rate(rate);
-};
-
-void AnimatedRenderComponent::set_anim_relative_time(const std::string& animName, double relativeTime)
-{
-	AnimControl* anim = anims.find_anim(animName);
-	if (!anim)
-	{
-		printf(("Anim " + animName + " not found.").c_str());
-		return;
-	}
-
-	double frame = relativeTime * anim->get_num_frames();
-	anim->pose(frame);
-};
-*/
-
-void AnimatedRenderComponent::set_anim_blend_weight(const std::string& animName, float blendWeight)
-{
-	AnimControl* anim = anims.find_anim(animName);
-	if (!anim)
-	{
-		printf(("Anim " + animName + " not found.").c_str());
-		return;
-	}
-
-	if (blendWeight < 0)
-		blendWeight = 0;
-	else if (blendWeight > 1)
-		blendWeight = 1;
-	for (auto part : parts)
-		part->set_control_effect(anim, blendWeight);
 };
 
 void AnimatedRenderComponent::load_bundles(NodePath path)

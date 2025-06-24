@@ -5,6 +5,11 @@
 #include <vector>
 #include <unordered_map>
 
+/// <summary>
+/// An implementation of AnimNode that contains a State Machine
+/// where each state is another anim node, and trigger conditions
+/// based on AnimWeights cause states to crossfade to other states.
+/// </summary>
 class StateMachineAnimNode : public AnimNode
 {
 public:

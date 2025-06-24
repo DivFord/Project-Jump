@@ -3,6 +3,10 @@
 #include "AnimNode.h"
 #include <unordered_map>
 
+/// <summary>
+/// Implementation of AnimNode that has two child AnimNodes, and blends between them
+/// based on a weight value.
+/// </summary>
 class BlendAnimNode : public AnimNode
 {
 	AnimNode* leftNode;

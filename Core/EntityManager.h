@@ -6,6 +6,10 @@
 
 #include "Entities/Entity.h"
 
+/// <summary>
+/// An AsyncTask that maintains a list of entities, and updates them
+/// every frame.
+/// </summary>
 class EntityManager : public AsyncTask {
 
 	std::vector<SP<Entity>> entities;

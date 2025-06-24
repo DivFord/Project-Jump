@@ -9,6 +9,10 @@
 
 class StateMachineAnimNode;
 
+/// <summary>
+/// A structure of AnimNodes that allows us to do things like crossfade between animations, blend animations
+/// based on a weight value, etc.
+/// </summary>
 class AnimGraph
 {
 private:

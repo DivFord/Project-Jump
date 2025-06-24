@@ -34,6 +34,10 @@ struct ShapeDef
 	};
 };
 
+/// <summary>
+/// An implementation of PhysicsComponent for a static body with primitive shape colliders.
+/// Useful for props and terrain.
+/// </summary>
 class FixedShapePhysicsComponent : public PhysicsComponent
 {
 	NodePath nodePath;

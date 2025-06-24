@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// POD to use as input when constructing a PlayerPhysicsComponent.
+/// </summary>
 struct PlayerPhysicsDef
 {
 	float capsuleRadius = 0.5f;

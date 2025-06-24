@@ -12,6 +12,11 @@
 
 class WindowFramework;
 
+/// <summary>
+/// Implementation of RenderComponent for an animated mesh.
+/// Can either use an AnimGraph to control the animations,
+/// or call the play_anim method.
+/// </summary>
 class AnimatedRenderComponent : public RenderComponent
 {
 	struct WeightBinding
@@ -51,9 +56,6 @@ public:
 	void add_weight_binding(Message::MessageType messageType, AnimWeightName weightName, InterpolationFunctions::Type interpolationType, float min = 0, float max = 1);
 
 	void play_anim(const std::string& animName, bool looping = false, float blendWeight = 1);
-	//void set_anim_speed(const std::string& animName, double rate);
-	//void set_anim_relative_time(const std::string& animName, double relativeTime);
-	void set_anim_blend_weight(const std::string& animName, float blendWeight);
 
 	void set_anim_graph(AnimGraph* animGraph)
 	{

@@ -2,6 +2,10 @@
 
 class AnimControl;
 
+/// <summary>
+/// An interface into Panda's AnimControl class, so that AnimGraph can
+/// set some values without needing to be directly coupled.
+/// </summary>
 class CurrentAnim
 {
 	AnimControl* anim;

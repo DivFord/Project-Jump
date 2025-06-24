@@ -1,4 +1,10 @@
 #pragma once
+
+/// <summary>
+/// A set of interpolation functions.
+/// Used by AnimatedRenderComponent to define a relationship
+/// between a Message and an AnimWeightName.
+/// </summary>
 static class InterpolationFunctions
 {
 

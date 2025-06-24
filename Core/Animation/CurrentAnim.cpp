@@ -2,8 +2,6 @@
 
 #include <animControl.h>
 
-#include <iostream>
-
 CurrentAnim::CurrentAnim(AnimControl* anim)
 {
 	this->anim = anim;
