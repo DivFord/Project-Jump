@@ -7,6 +7,8 @@
 #include "AnimWeightName.h"
 #include "CurrentAnim.h"
 
+class StateMachineAnimNode;
+
 class AnimGraph
 {
 private:
@@ -20,6 +22,7 @@ private:
 
 	std::vector<Layer> layers;
 	std::unordered_map<AnimWeightName, float> weightMap;
+	std::vector<StateMachineAnimNode*> stateMachines;
 
 public:
 	AnimGraph() {};
@@ -35,5 +38,8 @@ public:
 	void set_weight(AnimWeightName weightName, float value);
 
 	float get_influence(int animIndex, CurrentAnim& currentAnim);
+
+	void register_state_machine(StateMachineAnimNode* stateMachine);
+	void update(float deltaT);
 };
 

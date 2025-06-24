@@ -14,6 +14,7 @@
 #include "Animation/SingleAnimNode.h"
 #include "Animation/DrivenPoseAnimNode.h"
 #include "Animation/BlendAnimNode.h"
+#include "Animation/StateMachineAnimNode.h"
 
 Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 {
@@ -26,7 +27,7 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 
 	//TEMP CODE BELOW:
 
-	physicsManager->create_debug(windowFramework.get_render());
+	//physicsManager->create_debug(windowFramework.get_render());
 
 	//Make a test platform.
 	LVector3f pos(0, 0, -1);
@@ -49,13 +50,17 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 	auto animGraph = new AnimGraph();
 	auto idleAnim = new SingleAnimNode(pcRender->get_anim_index("Idle"), true, animGraph);
 	auto runAnim = new SingleAnimNode(pcRender->get_anim_index("Run"), true, animGraph);
-	auto blendAnim = new BlendAnimNode(idleAnim, runAnim, AnimWeightName::MOVE_SPEED, animGraph);
-	animGraph->add_layer(blendAnim);
+	auto groundBlend = new BlendAnimNode(idleAnim, runAnim, AnimWeightName::MOVE_SPEED, animGraph);
 
-	//auto jumpAnim = new DrivenPoseAnimNode(pcRender->get_anim_index("Jump"), AnimWeightName::GROUND_DIST, animGraph);
-	//auto fallAnim = new DrivenPoseAnimNode(pcRender->get_anim_index("Fall"), AnimWeightName::GROUND_DIST, animGraph);
-	//auto blendAnim = new BlendAnimNode(jumpAnim, fallAnim, AnimWeightName::VERT_SPEED, animGraph);
-	//animGraph->add_layer(jumpAnim);
+	auto jumpAnim = new DrivenPoseAnimNode(pcRender->get_anim_index("Jump"), AnimWeightName::GROUND_DIST, animGraph);
+	auto fallAnim = new DrivenPoseAnimNode(pcRender->get_anim_index("Fall"), AnimWeightName::GROUND_DIST, animGraph);
+	auto airBlend = new BlendAnimNode(jumpAnim, fallAnim, AnimWeightName::VERT_SPEED, animGraph);
+
+	auto stateMachine = new StateMachineAnimNode(groundBlend, animGraph);
+	stateMachine->add_state(airBlend);
+	stateMachine->add_transition(0, 1, AnimWeightName::GROUND_DIST, StateMachineAnimNode::Comparator::GREATER_THAN, 0.05f, 0.1f);
+	stateMachine->add_transition(1, 0, AnimWeightName::GROUND_DIST, StateMachineAnimNode::Comparator::LESS_THAN, 0.03f, 0.1f);
+	animGraph->add_layer(stateMachine);
 	
 	pcRender->set_anim_graph(animGraph);
 	pcRender->add_weight_binding(Message::MessageType::MOVE_SPEED, AnimWeightName::MOVE_SPEED, InterpolationFunctions::Type::LINEAR);

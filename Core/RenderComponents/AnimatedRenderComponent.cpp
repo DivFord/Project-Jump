@@ -20,6 +20,8 @@ void AnimatedRenderComponent::update(double deltaT)
 {
 	if (animGraph)
 	{
+		animGraph->update(float(deltaT));
+
 		for (int i = 0; i < anims.get_num_anims(); i++)
 		{
 			AnimControl* anim = anims.get_anim(i);

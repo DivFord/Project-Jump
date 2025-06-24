@@ -32,6 +32,5 @@ void CurrentAnim::set_anim_speed(float speed)
 void CurrentAnim::set_anim_relative_time(float relativeTime)
 {
 	double frame = relativeTime * anim->get_num_frames();
-	std::cout << frame << '\n';
 	anim->pose(frame);
 }

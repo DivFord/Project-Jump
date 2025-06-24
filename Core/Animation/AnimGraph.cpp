@@ -1,5 +1,7 @@
 #include "AnimGraph.h"
 
+#include "StateMachineAnimNode.h"
+
 void AnimGraph::add_layer(AnimNode* rootNode, float layerWeight)
 {
 	layers.push_back(Layer(rootNode, layerWeight));
@@ -25,3 +27,15 @@ float AnimGraph::get_influence(int animIndex, CurrentAnim& currentAnim)
 		influence += layer.weight * layer.rootNode->get_influence(animIndex, currentAnim);
 	return influence;
 };
+
+void AnimGraph::register_state_machine(StateMachineAnimNode* stateMachine)
+{
+	if (stateMachine != nullptr)
+		stateMachines.push_back(stateMachine);
+};
+
+void AnimGraph::update(float deltaT)
+{
+	for (auto stateMachine : stateMachines)
+		stateMachine->update(deltaT);
+}
