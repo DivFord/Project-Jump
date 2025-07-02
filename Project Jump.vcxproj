@@ -118,10 +118,11 @@
       <AdditionalDependencies>libp3framework.lib;libpanda.lib;libpandaexpress.lib;libp3dtool.lib;libp3dtoolconfig.lib;libp3direct.lib;libpandabullet.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)Assets" "$(TargetDir)\Assets\" /E /Y</Command>
+      <Command>XCOPY "$(SolutionDir)Assets" "$(TargetDir)\Assets\" /E /Y
+XCOPY #$(SolutionDir)Data" "$(TargetDir)\Data\" E/Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copy Assets to Build folder</Message>
+      <Message>Copy Assets and Data to Build folder</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,6 +139,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libp3framework.lib;libpanda.lib;libpandaexpress.lib;libp3dtool.lib;libp3dtoolconfig.lib;libp3direct.lib;libpandabullet.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)Assets" "$(TargetDir)\Assets\" /E /Y
+XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy assets and data to build folder.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
@@ -161,6 +169,7 @@
     <ClCompile Include="Project Jump.cpp" />
     <ClCompile Include="Core\Animation\SingleAnimNode.cpp" />
     <ClCompile Include="Core\Animation\StateMachineAnimNode.cpp" />
+    <ClCompile Include="Core\Data Loading\Tokeniser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\AnimGraph.h" />
@@ -168,6 +177,7 @@
     <ClInclude Include="Core\Animation\BlendAnimNode.h" />
     <ClInclude Include="Core\Animation\AnimNode.h" />
     <ClInclude Include="Core\Config.h" />
+    <ClInclude Include="Core\Data Loading\Token.h" />
     <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />
     <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
@@ -190,6 +200,7 @@
     <ClInclude Include="Core\Animation\InterpolationFunctions.h" />
     <ClInclude Include="Core\Animation\DrivenPoseAnimNode.h" />
     <ClInclude Include="Core\Animation\CurrentAnim.h" />
+    <ClInclude Include="Core\Data Loading\Tokeniser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

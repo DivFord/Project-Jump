@@ -9,8 +9,21 @@
 #include "Core/Game.h"
 #include "Core/Config.h"
 
+#include "Core/Data Loading/Tokeniser.h";
+#include "Core/Data Loading/Token.h";
+
 int main(int argc, char* argv[])
 {
+    Tokeniser tokeniser;
+    tokeniser.process_file("Platform.txt");
+    Token outputToken = tokeniser.get_next();
+    while (outputToken.type != Token::Type::UNSET)
+    {
+        std::cout << outputToken.print() << '\n';
+        outputToken = tokeniser.get_next();
+    }
+
+    /*
     InitNewTypes();
 
     //Open a new window framework.
@@ -32,5 +45,7 @@ int main(int argc, char* argv[])
 
     //Close and exit.
     framework.close_framework();
+    */
+
     return 0;
 };

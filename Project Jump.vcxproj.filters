@@ -90,6 +90,9 @@
     <ClCompile Include="Core\Animation\CurrentAnim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Data Loading\Tokeniser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -171,6 +174,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Animation\CurrentAnim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Tokeniser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

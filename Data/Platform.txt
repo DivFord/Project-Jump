@@ -1,0 +1,5 @@
+Platform {
+	FixedShapePhysicsComponent (CYLINDER, 2, 2, 0, v3(0,0,-1))
+	MeshRenderComponent ("Terrain/Platform_Circle")
+}
+
