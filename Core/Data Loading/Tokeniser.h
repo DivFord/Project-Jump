@@ -20,6 +20,10 @@ public:
 
 	void process_file(std::string filename);
 
+	bool empty();
+	Token get_current();
+	void advance();
+	bool advance_until(Token::Type tokenType);
 	Token get_next();
+	Token get_next(Token::Type tokenType);
 };
-

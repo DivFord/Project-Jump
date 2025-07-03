@@ -166,10 +166,12 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Animation\InterpolationFunctions.cpp" />
     <ClCompile Include="Core\Animation\DrivenPoseAnimNode.cpp" />
     <ClCompile Include="Core\Animation\CurrentAnim.cpp" />
+    <ClCompile Include="Core\Data Loading\DataLoadTest.cpp" />
     <ClCompile Include="Project Jump.cpp" />
     <ClCompile Include="Core\Animation\SingleAnimNode.cpp" />
     <ClCompile Include="Core\Animation\StateMachineAnimNode.cpp" />
     <ClCompile Include="Core\Data Loading\Tokeniser.cpp" />
+    <ClCompile Include="Core\Data Loading\VariableLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\AnimGraph.h" />
@@ -177,7 +179,11 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\Animation\BlendAnimNode.h" />
     <ClInclude Include="Core\Animation\AnimNode.h" />
     <ClInclude Include="Core\Config.h" />
+    <ClInclude Include="Core\Data Loading\Component Defs\Physics\FixedShapePhysicsDef.h" />
+    <ClInclude Include="Core\Data Loading\Component Defs\Render\MeshRenderDef.h" />
+    <ClInclude Include="Core\Data Loading\DataLoadingException.h" />
     <ClInclude Include="Core\Data Loading\Token.h" />
+    <ClInclude Include="Core\PhysicsComponents\ShapeDef.h" />
     <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />
     <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
@@ -201,6 +207,8 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\Animation\DrivenPoseAnimNode.h" />
     <ClInclude Include="Core\Animation\CurrentAnim.h" />
     <ClInclude Include="Core\Data Loading\Tokeniser.h" />
+    <ClInclude Include="Core\Data Loading\VariableLoader.h" />
+    <ClInclude Include="Core\Data Loading\DataLoadTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

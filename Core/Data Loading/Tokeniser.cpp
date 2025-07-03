@@ -5,6 +5,7 @@
 const std::string dataPath = "Data/";
 const int bufferSize = 100;
 
+#pragma region Constructor
 Tokeniser::Tokeniser()
 {
 	//Physics Components.
@@ -24,8 +25,10 @@ Tokeniser::Tokeniser()
 	classNames.insert("Transition");
 	classNames.insert("v3");
 	classNames.insert("WeightBind");
-}
+};
+#pragma endregion
 
+#pragma region File Processing
 void Tokeniser::process_file(std::string filename)
 {
 	//Clear the output queue.
@@ -40,18 +43,18 @@ void Tokeniser::process_file(std::string filename)
 		fileStream.getline(buffer, bufferSize);
 		process_line(buffer);
 	}
-}
+};
 
 inline static bool char_is_number(char character)
 {
 	return (character == '.' || (character >= '0' && character <= '9'));
-}
+};
 
 inline static bool char_breaks_string(char character, bool inQuotes = true)
 {
 	return (character == ' ' || character == '(' || character == ')' || character == '{' || character == '}'
-			|| character == '\0' || (!inQuotes && character == ','));
-}
+		|| character == '\0' || (!inQuotes && character == ','));
+};
 
 void Tokeniser::process_line(const char* line)
 {
@@ -130,13 +133,49 @@ void Tokeniser::process_line(const char* line)
 			line = next;
 		}
 	}
-}
+};
+#pragma endregion
+
+#pragma region Access
+bool Tokeniser::empty()
+{
+	return output.empty();
+};
+
+Token Tokeniser::get_current()
+{
+	if (output.empty())
+		return Token::make_unset();
+	return output.front();
+};
+
+void Tokeniser::advance()
+{
+	if (!output.empty())
+		output.pop();
+};
+
+bool Tokeniser::advance_until(Token::Type tokenType)
+{
+	while (!output.empty())
+	{
+		if (get_current().type == tokenType)
+			return true;
+		advance();
+	}
+	return false;
+};
 
 Token Tokeniser::get_next()
 {
-	if (output.empty())
-		return Token(Token::Type::UNSET, "");
-	Token r = output.front();
-	output.pop();
-	return r;
-}
+	advance();
+	return get_current();
+};
+
+Token Tokeniser::get_next(Token::Type tokenType)
+{
+	if (!advance_until(tokenType))
+		return Token::make_unset();
+	return get_current();
+};
+#pragma endregion

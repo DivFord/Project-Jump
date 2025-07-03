@@ -22,7 +22,11 @@ struct Token
 
 	Token(Type type, std::string value) : type{ type }, value{ value } {};
 
-	std::string print()
+	static Token make_unset() { return Token(Type::UNSET, ""); };
+
+	bool unset() { return type == Type::UNSET; };
+
+	const std::string print()
 	{
 		switch (type)
 		{
@@ -46,5 +50,5 @@ struct Token
 		default:
 			return "Undefined!";
 		}
-	}
+	};
 };

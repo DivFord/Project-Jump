@@ -93,6 +93,12 @@
     <ClCompile Include="Core\Data Loading\Tokeniser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Data Loading\VariableLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Data Loading\DataLoadTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -180,6 +186,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\Token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Component Defs\Physics\FixedShapePhysicsDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Component Defs\Render\MeshRenderDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PhysicsComponents\ShapeDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\VariableLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\DataLoadingException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\DataLoadTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
