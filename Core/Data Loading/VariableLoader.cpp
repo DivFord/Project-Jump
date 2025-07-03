@@ -7,6 +7,22 @@
 
 #include <iostream>
 
+#pragma region Load Boolean
+bool VariableLoader::load_bool(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::VAR_NAM)
+		throw DataLoadingException::value_mismatch(current, "string (boolean)");
+	if (current.value == "TRUE")
+		return true;
+	else if (current.value == "FALSE")
+		return false;
+	else
+		throw DataLoadingException::bad_value(current);
+}
+#pragma endregion
+
+#pragma region Load Number
 static int operator_precedence(char operatorChar)
 {
 	if (operatorChar == '*' || operatorChar == '/')
@@ -82,6 +98,7 @@ double VariableLoader::load_number(Tokeniser& tokeniser)
 {
 	return parse_numeric_expression(tokeniser, 0);
 };
+#pragma endregion
 
 LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 {

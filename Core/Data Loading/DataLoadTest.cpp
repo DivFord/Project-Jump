@@ -23,8 +23,17 @@ DataLoadTest::DataLoadTest(bool printTokens)
 
 	else
 	{
-		tokeniser.advance_until(Token::Type::NUMBER);
-		std::cout << tokeniser.get_current().print() << '\n';
-		std::cout << VariableLoader::load_number(tokeniser);
+		try {
+			while (!tokeniser.empty())
+			{
+				std::cout << tokeniser.get_current().print() << '\n';
+				std::cout << VariableLoader::load_bool(tokeniser) << '\n';
+				tokeniser.advance();
+			}
+		}
+		catch (DataLoadingException& e)
+		{
+			e.print();
+		}
 	}
 };
