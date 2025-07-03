@@ -38,19 +38,19 @@ struct DataLoadingException {
 			break;
 
 		case Type::MISSING_BRACKET:
-			std::cout << "Missing Bracket Exception: " << token.value;
+			std::cout << "Missing Bracket Exception: " << token.print(true);
 			break;
 
 		case Type::VALUE_MISMATCH:
-			std::cout << "Value Mismatch Exception: found " << token.value << " but was expecting " << message;
+			std::cout << "Value Mismatch Exception: found " << token.print(true) << " but was expecting " << message;
 			break;
 
 		case Type::INVALID_OPERATOR:
-			std::cout << "Invalid Operator Exception: " << token.value;
+			std::cout << "Invalid Operator Exception: " << token.print(true);
 			break;
 
 		case Type::BAD_VALUE:
-			std::cout << "Bad Value Exception: " << token.print();
+			std::cout << "Bad Value Exception: " << token.print(true);
 		}
 		std::cout << '\n';
 	};

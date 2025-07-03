@@ -19,36 +19,50 @@ struct Token
 
 	Type type;
 	std::string value;
+	int lineNumber;
 
-	Token(Type type, std::string value) : type{ type }, value{ value } {};
+	Token(Type type, std::string value, int lineNumber) : type{ type }, value{ value }, lineNumber { lineNumber+1 } {};
 
-	static Token make_unset() { return Token(Type::UNSET, ""); };
+	static Token make_unset() { return Token(Type::UNSET, "", -1); };
 
 	bool unset() { return type == Type::UNSET; };
 
-	const std::string print()
+	const std::string print(bool withLineNumber = false)
 	{
+		std::string r;
 		switch (type)
 		{
 		case Type::UNSET:
-			return "Unset: " + value;
+			r = "Unset: ";
+			break;
 		case Type::CLASS_NAME:
-			return "Class: " + value;
+			r = "Class: ";
+			break;
 		case Type::BRACKET:
-			return "Bracket: " + value;
+			r = "Bracket: ";
+			break;
 		case Type::SEPARATOR:
-			return "Separator: " + value;
+			r = "Separator: ";
+			break;
 		case Type::NUMBER:
-			return "Number: " + value;
+			r = "Number: ";
+			break;
 		case Type::OPERATOR:
-			return "Operator: " + value;
+			r = "Operator: ";
+			break;
 		case Type::STRING:
-			return "String: " + value;
+			r = "String: ";
+			break;
 		case Type::VAR_NAM:
-			return "Variable: " + value;
+			r = "Variable: ";
+			break;
 
 		default:
 			return "Undefined!";
 		}
+		r += value;
+		if (withLineNumber)
+			r += " (line " + std::to_string(lineNumber) + ")";
+		return r;
 	};
 };

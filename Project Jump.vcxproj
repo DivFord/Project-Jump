@@ -151,6 +151,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
     <ClCompile Include="Core\Animation\AnimNode.cpp" />
     <ClCompile Include="Core\Animation\BlendAnimNode.cpp" />
+    <ClCompile Include="Core\PhysicsComponents\ShapeDef.cpp" />
     <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp" />
     <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
     <ClCompile Include="Core\Entities\Component.cpp" />

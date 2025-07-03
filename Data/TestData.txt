@@ -1,3 +1,1 @@
-TRUE
-FALSE
-POOP
+Shape("CONE", 0.5 + 1, 2, v3(0, 2 * (1+4), 0))

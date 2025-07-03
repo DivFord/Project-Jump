@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "DataLoadingException.h"
+
 const std::string dataPath = "Data/";
 const int bufferSize = 100;
 
@@ -38,10 +40,11 @@ void Tokeniser::process_file(std::string filename)
 	fileStream.open(dataPath + filename, std::ifstream::in);
 	//Read the file line by line.
 	char buffer[bufferSize];
+	int lineNumber = 0;
 	while (fileStream.good())
 	{
 		fileStream.getline(buffer, bufferSize);
-		process_line(buffer);
+		process_line(buffer, lineNumber++);
 	}
 };
 
@@ -56,7 +59,7 @@ inline static bool char_breaks_string(char character, bool inQuotes = true)
 		|| character == '\0' || (!inQuotes && character == ','));
 };
 
-void Tokeniser::process_line(const char* line)
+void Tokeniser::process_line(const char* line, int lineNumber)
 {
 	while (true)
 	{
@@ -73,19 +76,19 @@ void Tokeniser::process_line(const char* line)
 
 		if (current == '(' || current == ')' || current == '{' || current == '}')
 		{
-			output.push(Token(Token::Type::BRACKET, std::string(line, 1)));
+			output.push(Token(Token::Type::BRACKET, std::string(line, 1), lineNumber));
 			line++;
 		}
 
 		else if (current == ',')
 		{
-			output.push(Token(Token::Type::SEPARATOR, std::string(line, 1)));
+			output.push(Token(Token::Type::SEPARATOR, std::string(line, 1), lineNumber));
 			line++;
 		}
 
 		else if (current == '=' || current == '+' || current == '*' || current == '/')
 		{
-			output.push(Token(Token::Type::OPERATOR, std::string(line, 1)));
+			output.push(Token(Token::Type::OPERATOR, std::string(line, 1), lineNumber));
 			line++;
 		}
 
@@ -95,11 +98,11 @@ void Tokeniser::process_line(const char* line)
 			while (char_is_number(*next))
 				next++;
 			if (next - line == 1 && current == '-') {
-				output.push(Token(Token::Type::OPERATOR, std::string(line, 1)));
+				output.push(Token(Token::Type::OPERATOR, std::string(line, 1), lineNumber));
 				line++;
 			}
 			else {
-				output.push(Token(Token::Type::NUMBER, std::string(line, next - line)));
+				output.push(Token(Token::Type::NUMBER, std::string(line, next - line), lineNumber));
 				line = next;
 			}
 		}
@@ -111,12 +114,12 @@ void Tokeniser::process_line(const char* line)
 				next++;
 			if (*next == '"')
 			{
-				output.push(Token(Token::Type::STRING, std::string(line + 1, next - line - 1)));
+				output.push(Token(Token::Type::STRING, std::string(line + 1, next - line - 1), lineNumber));
 				line = next + 1;
 			}
 			else
 			{
-				output.push(Token(Token::Type::STRING, std::string(line + 1, next - line)));
+				output.push(Token(Token::Type::STRING, std::string(line + 1, next - line), lineNumber));
 				line = next;
 			}
 		}
@@ -127,9 +130,9 @@ void Tokeniser::process_line(const char* line)
 				next++;
 			std::string val(line, next - line);
 			if (classNames.count(val) > 0)
-				output.push(Token(Token::Type::CLASS_NAME, val));
+				output.push(Token(Token::Type::CLASS_NAME, val, lineNumber));
 			else
-				output.push(Token(Token::Type::VAR_NAM, val));
+				output.push(Token(Token::Type::VAR_NAM, val, lineNumber));
 			line = next;
 		}
 	}
@@ -166,6 +169,17 @@ bool Tokeniser::advance_until(Token::Type tokenType)
 	return false;
 };
 
+bool Tokeniser::advance_until(std::string tokenValue)
+{
+	while (!output.empty())
+	{
+		if (get_current().value == tokenValue)
+			return true;
+		advance();
+	}
+	return false;
+};
+
 Token Tokeniser::get_next()
 {
 	advance();
@@ -177,5 +191,28 @@ Token Tokeniser::get_next(Token::Type tokenType)
 	if (!advance_until(tokenType))
 		return Token::make_unset();
 	return get_current();
+};
+
+Token Tokeniser::get_next(std::string tokenValue)
+{
+	if (!advance_until(tokenValue))
+		return Token::make_unset();
+	return get_current();
+};
+
+void Tokeniser::pass_bracket(std::string bracket)
+{
+	Token next = get_next(bracket);
+	if (next.unset())
+		throw DataLoadingException::missing_bracket(next);
+	advance();
+};
+
+Token Tokeniser::pass_separator()
+{
+	Token next = get_next();
+	while (next.type == Token::Type::SEPARATOR)
+		next = get_next();
+	return next;
 };
 #pragma endregion

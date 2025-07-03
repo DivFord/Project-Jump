@@ -49,7 +49,7 @@ static double parse_numeric_expression(Tokeniser& tokeniser, int maxPrecedence)
 	Token current = tokeniser.get_current();
 	while (!current.unset())
 	{
-		std::cout << current.print() << " LHS: " << lhs << " PREC: " << maxPrecedence << "\n";
+		//std::cout << current.print() << " LHS: " << lhs << " PREC: " << maxPrecedence << "\n";
 
 		switch (current.type)
 		{
@@ -100,16 +100,71 @@ double VariableLoader::load_number(Tokeniser& tokeniser)
 };
 #pragma endregion
 
+#pragma region Load Vector
 LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 {
 	//Find the opening bracket.
-	Token next = tokeniser.get_next(Token::Type::BRACKET);
-	if (next.unset() || next.value != "(")
-		throw DataLoadingException::missing_bracket(next);
-
+	tokeniser.pass_bracket("(");
+	Token current = tokeniser.get_current();
+	//Find up to three numbers.
+	double vals[3]{ 0 };
+	int i = 0;
+	while (current.value != ")" && i < 3)
+	{
+		if (current.type == Token::Type::SEPARATOR)
+			current = tokeniser.get_next();
+		else if (current.type == Token::Type::NUMBER || current.type == Token::Type::BRACKET) {
+			vals[i++] = load_number(tokeniser);
+			current = tokeniser.get_current();
+		}
+		else
+			throw DataLoadingException::value_mismatch(current, "separator, bracket, or number");
+	}
+	//Find the closing bracket.
+	tokeniser.pass_bracket(")");
+	//Return!
+	return LVector3f(vals[0], vals[1], vals[2]);
 };
+#pragma endregion
 
+#pragma region Load Shape
 ShapeDef VariableLoader::load_shape(Tokeniser& tokeniser)
 {
+	//Find the opening bracket.
+	tokeniser.pass_bracket("(");
+	Token current = tokeniser.get_current();
+	//Get the shape type.
+	ShapeDef::Type type = ShapeDef::Type::SPHERE;
+	if (current.type == Token::Type::STRING)
+	{
+		if (current.value == "BOX")
+			type = ShapeDef::Type::BOX;
+		else if (current.value == "CYLINDER")
+			type = ShapeDef::Type::CYLINDER;
+		else if (current.value == "CONE")
+			type = ShapeDef::Type::CONE;
+		else if (current.value == "CAPSULE")
+			type = ShapeDef::Type::CAPSULE;
 
+		current = tokeniser.pass_separator();
+	}
+	//Get the width, depth, and breadth.
+	float vals[3]{ 1 };
+	int i = 0;
+	while (i < 3 && current.type == Token::Type::NUMBER)
+	{
+		vals[i++] = load_number(tokeniser);
+		current = tokeniser.pass_separator();
+	}
+	//Get the position.
+	LVector3f pos{ 0 };
+	if (current.type == Token::Type::CLASS_NAME && current.value == "v3")
+	{
+		pos = load_vector(tokeniser);
+	}
+	//Find the closing bracket.
+	tokeniser.pass_bracket(")");
+	//Return!
+	return ShapeDef(type, vals[0], vals[1], vals[2], pos);
 };
+#pragma endregion

@@ -99,6 +99,9 @@
     <ClCompile Include="Core\Data Loading\DataLoadTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\PhysicsComponents\ShapeDef.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
