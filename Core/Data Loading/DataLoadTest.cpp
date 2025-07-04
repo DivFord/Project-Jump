@@ -5,6 +5,7 @@
 #include "Tokeniser.h"
 #include "Token.h"
 #include "Component Defs/Physics/FixedShapePhysicsDef.h"
+#include "Component Defs/Render/MeshRenderDef.h"
 
 DataLoadTest::DataLoadTest(bool printTokens)
 {
@@ -29,6 +30,10 @@ DataLoadTest::DataLoadTest(bool printTokens)
 			{
 				std::cout << shape << '\n';
 			}
+			
+			tokeniser.pass_separator();
+			MeshRenderDef meshRender(tokeniser);
+			std::cout << meshRender.fileName << '\n';
 		}
 		catch (DataLoadingException& e)
 		{
