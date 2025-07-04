@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Entities/PhysicsComponent.h"
-#include "PlayerPhysicsDef.h"
+#include "../Data Loading/Component Defs/Physics/PlayerPhysicsDef.h"
 
 #include <nodePath.h>
 

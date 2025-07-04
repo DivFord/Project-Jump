@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../ComponentDef.h"
-#include "../../../PhysicsComponents/ShapeDef.h"
+#include "../../Other Defs/ShapeDef.h"
 
 struct FixedShapePhysicsDef : public ComponentDef
 {	

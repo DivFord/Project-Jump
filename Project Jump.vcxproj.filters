@@ -99,7 +99,7 @@
     <ClCompile Include="Core\Data Loading\DataLoadTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PhysicsComponents\ShapeDef.cpp">
+    <ClCompile Include="Core\Data Loading\Other Defs\ShapeDef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\Data Loading\EntityDef.cpp">
@@ -152,7 +152,7 @@
     <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsDef.h">
+    <ClInclude Include="Core\Data Loading\Component Defs\Physics\PlayerPhysicsDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\OtherComponents\PlayerInputComponent.h">
@@ -203,7 +203,7 @@
     <ClInclude Include="Core\Data Loading\Component Defs\Render\MeshRenderDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PhysicsComponents\ShapeDef.h">
+    <ClInclude Include="Core\Data Loading\Other Defs\ShapeDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\VariableLoader.h">
@@ -222,6 +222,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\ComponentLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Component Defs\Render\AnimatedRenderDef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

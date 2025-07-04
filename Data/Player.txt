@@ -1,11 +1,11 @@
 Player {
-	PlayerPhysicsComponent (
+	PlayerPhysicsComponent {
 		capsuleRadius = 0.5,
 		stepHeight = 0.5,
 		maxSpeed = 10
-	)
+	}
 
-	AnimatedRenderComponent (
+	AnimatedRenderComponent {
 		"Player/LilPiggy", v3(0, 0, -0.5 * 1.7),
 
 		AnimGraph (
@@ -31,7 +31,7 @@ Player {
 		WeightBind(MOVE_SPEED, MOVE_SPEED, LINEAR),
 		WeightBind(GROUND_DIST, GROUND_DIST, LINEAR),
 		WeightBind(VERT_SPEED, VERT_SPEED, CUBIC, -1, 1)
-	)
+	}
 
-	PlayerInputComponent()
+	PlayerInputComponent{}
 }

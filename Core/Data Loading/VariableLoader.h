@@ -2,7 +2,7 @@
 
 #include <lvector3.h>
 
-#include "../PhysicsComponents/ShapeDef.h"
+#include "Other Defs/ShapeDef.h"
 
 class Tokeniser;
 

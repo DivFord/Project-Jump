@@ -1,6 +1,7 @@
 #include "ComponentLoader.h"
 
 #include "Component Defs/Physics/FixedShapePhysicsDef.h"
+#include "Component Defs/Physics/PlayerPhysicsDef.h"
 
 #include "Component Defs/Render/MeshRenderDef.h"
 
@@ -24,6 +25,8 @@ ComponentDef ComponentLoader::load_physics_component(Tokeniser& tokeniser)
 
 	if (current.value == "FixedShapePhysicsComponent")
 		return FixedShapePhysicsDef(tokeniser);
+	if (current.value == "PlayerPhysicsComponent")
+		return PlayerPhysicsDef(tokeniser);
 
 	throw DataLoadingException::undefined_class(current, "physics component");
 }

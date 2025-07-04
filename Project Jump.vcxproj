@@ -152,7 +152,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
     <ClCompile Include="Core\Animation\AnimNode.cpp" />
     <ClCompile Include="Core\Animation\BlendAnimNode.cpp" />
-    <ClCompile Include="Core\PhysicsComponents\ShapeDef.cpp" />
+    <ClCompile Include="Core\Data Loading\Other Defs\ShapeDef.cpp" />
     <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp" />
     <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
     <ClCompile Include="Core\Entities\Component.cpp" />
@@ -177,6 +177,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Data Loading\VariableLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Data Loading\Component Defs\Render\AnimatedRenderDef.h" />
     <ClInclude Include="Core\Data Loading\ComponentLoader.h" />
     <ClInclude Include="Core\Data Loading\Component Defs\ComponentDef.h" />
     <ClInclude Include="Core\Animation\AnimGraph.h" />
@@ -188,7 +189,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\Data Loading\Component Defs\Render\MeshRenderDef.h" />
     <ClInclude Include="Core\Data Loading\DataLoadingException.h" />
     <ClInclude Include="Core\Data Loading\Token.h" />
-    <ClInclude Include="Core\PhysicsComponents\ShapeDef.h" />
+    <ClInclude Include="Core\Data Loading\Other Defs\ShapeDef.h" />
     <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />
     <ClInclude Include="Core\Bullet Extension\btPlatformerController.h" />
     <ClInclude Include="Core\Entities\Component.h" />
@@ -200,7 +201,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\GamePhysicsManager.h" />
     <ClInclude Include="Core\Entities\RenderComponent.h" />
     <ClInclude Include="Core\Entities\VitalComponent.h" />
-    <ClInclude Include="Core\PhysicsComponents\PlayerPhysicsDef.h" />
+    <ClInclude Include="Core\Data Loading\Component Defs\Physics\PlayerPhysicsDef.h" />
     <ClInclude Include="Core\RenderComponents\MeshRenderComponent.h" />
     <ClInclude Include="Core\PhysicsComponents\FixedShapePhysicsComponent.h" />
     <ClInclude Include="Core\Bullet Extension\PlatformerControllerNode.h" />

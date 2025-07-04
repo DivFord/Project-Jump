@@ -4,7 +4,7 @@
 #include <lvector3.h>
 
 #include "../Entities/Entity.h"
-#include "ShapeDef.h"
+#include "../Data Loading/Other Defs/ShapeDef.h"
 
 class GamePhysicsManager;
 

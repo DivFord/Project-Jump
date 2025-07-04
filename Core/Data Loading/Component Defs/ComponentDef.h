@@ -12,6 +12,7 @@ struct ComponentDef
 		
 		//Physics Components.
 		FIXED_SHAPE_PHYS,
+		PLAYER_PHYS,
 
 		//Render Components.
 		MESH_RENDER,
