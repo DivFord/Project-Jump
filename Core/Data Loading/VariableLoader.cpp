@@ -146,6 +146,7 @@ ShapeDef VariableLoader::load_shape(Tokeniser& tokeniser)
 		else if (current.value == "CAPSULE")
 			type = ShapeDef::Type::CAPSULE;
 
+		tokeniser.advance();
 		current = tokeniser.pass_separator();
 	}
 	//Get the width, depth, and breadth.
@@ -161,9 +162,10 @@ ShapeDef VariableLoader::load_shape(Tokeniser& tokeniser)
 	if (current.type == Token::Type::CLASS_NAME && current.value == "v3")
 	{
 		pos = load_vector(tokeniser);
+		current = tokeniser.get_current();
 	}
 	//Find the closing bracket.
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 	//Return!
 	return ShapeDef(type, vals[0], vals[1], vals[2], pos);
 };

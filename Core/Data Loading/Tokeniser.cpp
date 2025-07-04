@@ -25,6 +25,7 @@ Tokeniser::Tokeniser()
 	classNames.insert("Driven");
 	classNames.insert("StateMachine");
 	classNames.insert("Transition");
+	classNames.insert("Shape");
 	classNames.insert("v3");
 	classNames.insert("WeightBind");
 };
@@ -158,8 +159,10 @@ void Tokeniser::advance()
 		output.pop();
 };
 
-bool Tokeniser::advance_until(Token::Type tokenType)
+bool Tokeniser::advance_until(Token::Type tokenType, bool currentIncluded)
 {
+	if (currentIncluded && get_current().type == tokenType)
+		return true;
 	while (!output.empty())
 	{
 		if (get_current().type == tokenType)
@@ -169,8 +172,10 @@ bool Tokeniser::advance_until(Token::Type tokenType)
 	return false;
 };
 
-bool Tokeniser::advance_until(std::string tokenValue)
+bool Tokeniser::advance_until(std::string tokenValue, bool currentIncluded)
 {
+	if (currentIncluded && get_current().value == tokenValue)
+		return true;
 	while (!output.empty())
 	{
 		if (get_current().value == tokenValue)
@@ -186,23 +191,23 @@ Token Tokeniser::get_next()
 	return get_current();
 };
 
-Token Tokeniser::get_next(Token::Type tokenType)
+Token Tokeniser::get_next(Token::Type tokenType, bool currentIncluded)
 {
-	if (!advance_until(tokenType))
+	if (!advance_until(tokenType, currentIncluded))
 		return Token::make_unset();
 	return get_current();
 };
 
-Token Tokeniser::get_next(std::string tokenValue)
+Token Tokeniser::get_next(std::string tokenValue, bool currentIncluded)
 {
-	if (!advance_until(tokenValue))
+	if (!advance_until(tokenValue, currentIncluded))
 		return Token::make_unset();
 	return get_current();
 };
 
-void Tokeniser::pass_bracket(std::string bracket)
+void Tokeniser::pass_bracket(std::string bracket, bool currentIncluded)
 {
-	Token next = get_next(bracket);
+	Token next = get_next(bracket, currentIncluded);
 	if (next.unset())
 		throw DataLoadingException::missing_bracket(next);
 	advance();
@@ -210,9 +215,9 @@ void Tokeniser::pass_bracket(std::string bracket)
 
 Token Tokeniser::pass_separator()
 {
-	Token next = get_next();
-	while (next.type == Token::Type::SEPARATOR)
-		next = get_next();
-	return next;
+	Token current = get_current();
+	while (current.type == Token::Type::SEPARATOR)
+		current = get_next();
+	return current;
 };
 #pragma endregion

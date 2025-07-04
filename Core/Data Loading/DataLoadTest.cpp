@@ -24,7 +24,11 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			std::cout << VariableLoader::load_shape(tokeniser);
+			FixedShapePhysicsDef fixedShape(tokeniser);
+			for (const ShapeDef& shape : fixedShape.shapes)
+			{
+				std::cout << shape << '\n';
+			}
 		}
 		catch (DataLoadingException& e)
 		{

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../../../PhysicsComponents/ShapeDef.h"
 #include "../../Tokeniser.h"
 #include "../../VariableLoader.h"
@@ -7,19 +9,20 @@
 
 struct FixedShapePhysicsDef
 {	
-	ShapeDef shape;
+	std::vector<ShapeDef> shapes;
 
 	FixedShapePhysicsDef(Tokeniser& tokeniser)
 	{
 		//Check for opening bracket.
-		Token next = tokeniser.get_next();
-		if (next.type != Token::Type::BRACKET || next.value != "(")
-			throw (DataLoadingException::missing_bracket(next));
+		tokeniser.pass_bracket("{");
+		Token current = tokeniser.get_current();
 		//Load shape.
-		shape = VariableLoader::load_shape(tokeniser);
+		while (current.type == Token::Type::CLASS_NAME && current.value == "Shape")
+		{
+			shapes.push_back(VariableLoader::load_shape(tokeniser));
+			current = tokeniser.pass_separator();
+		}
 		//Check for closing bracket.
-		next = tokeniser.get_next();
-		if (next.type != Token::Type::BRACKET || next.value != ")")
-			throw (DataLoadingException::missing_bracket(next));
+		tokeniser.pass_bracket("}", true);
 	};
 };

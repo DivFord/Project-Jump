@@ -23,11 +23,11 @@ public:
 	bool empty();
 	Token get_current();
 	void advance();
-	bool advance_until(Token::Type tokenType);
-	bool advance_until(std::string tokenValue);
+	bool advance_until(Token::Type tokenType, bool currentIncluded = false);
+	bool advance_until(std::string tokenValue, bool currentIncluded = false);
 	Token get_next();
-	Token get_next(Token::Type tokenType);
-	Token get_next(std::string tokenValue);
-	void pass_bracket(std::string bracket);
+	Token get_next(Token::Type tokenType, bool currentIncluded = false);
+	Token get_next(std::string tokenValue, bool currentIncluded = false);
+	void pass_bracket(std::string bracket, bool currentIncluded = false);
 	Token pass_separator();
 };
