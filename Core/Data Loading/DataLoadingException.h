@@ -15,6 +15,7 @@ struct DataLoadingException {
 		VALUE_MISMATCH,
 		INVALID_OPERATOR,
 		BAD_VALUE,
+		UNDEFINED_CLASS
 	};
 
 	Token token;
@@ -28,6 +29,7 @@ struct DataLoadingException {
 	static DataLoadingException value_mismatch(Token token, std::string expectedType) { return DataLoadingException(token, Type::VALUE_MISMATCH, expectedType); };
 	static DataLoadingException invalid_operator(Token token) { return DataLoadingException(token, Type::INVALID_OPERATOR); };
 	static DataLoadingException bad_value(Token token) { return DataLoadingException(token, Type::BAD_VALUE); };
+	static DataLoadingException undefined_class(Token token, std::string asType) { return DataLoadingException(token, Type::UNDEFINED_CLASS, asType); };
 
 	void print()
 	{
@@ -51,6 +53,11 @@ struct DataLoadingException {
 
 		case Type::BAD_VALUE:
 			std::cout << "Bad Value Exception: " << token.print(true);
+			break;
+
+		case Type::UNDEFINED_CLASS:
+			std::cout << "Undefined Class Exception: " << token.print(true) << " is not defined as a " << message << ".";
+			break;
 		}
 		std::cout << '\n';
 	};

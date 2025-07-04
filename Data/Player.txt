@@ -4,6 +4,7 @@ Player {
 		stepHeight = 0.5,
 		maxSpeed = 10
 	)
+
 	AnimatedRenderComponent (
 		"Player/LilPiggy", v3(0, 0, -0.5 * 1.7),
 
@@ -31,5 +32,6 @@ Player {
 		WeightBind(GROUND_DIST, GROUND_DIST, LINEAR),
 		WeightBind(VERT_SPEED, VERT_SPEED, CUBIC, -1, 1)
 	)
+
 	PlayerInputComponent()
 }

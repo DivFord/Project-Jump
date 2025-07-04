@@ -2,27 +2,24 @@
 
 #include <vector>
 
+#include "../ComponentDef.h"
 #include "../../../PhysicsComponents/ShapeDef.h"
-#include "../../Tokeniser.h"
-#include "../../VariableLoader.h"
-#include "../../DataLoadingException.h"
 
-struct FixedShapePhysicsDef
+struct FixedShapePhysicsDef : public ComponentDef
 {	
 	std::vector<ShapeDef> shapes;
 
 	FixedShapePhysicsDef(Tokeniser& tokeniser)
 	{
-		//Check for opening bracket.
 		tokeniser.pass_bracket("{");
 		Token current = tokeniser.get_current();
-		//Load shape.
 		while (current.type == Token::Type::CLASS_NAME && current.value == "Shape")
 		{
 			shapes.push_back(VariableLoader::load_shape(tokeniser));
 			current = tokeniser.pass_separator();
 		}
-		//Check for closing bracket.
-		tokeniser.pass_bracket("}", true);
+		tokeniser.pass_bracket("}");
 	};
+
+	ComponentDef::Type get_type() override { return ComponentDef::Type::FIXED_SHAPE_PHYS; };
 };

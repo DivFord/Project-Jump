@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "DataLoadingException.h"
+#include "ComponentLoader.h"
 
 const std::string dataPath = "Data/";
 const int bufferSize = 100;
@@ -10,14 +11,7 @@ const int bufferSize = 100;
 #pragma region Constructor
 Tokeniser::Tokeniser()
 {
-	//Physics Components.
-	classNames.insert("FixedShapePhysicsComponent");
-	classNames.insert("PlayerPhysicsComponent");
-	//Render Components.
-	classNames.insert("AnimatedRenderComponent");
-	classNames.insert("MeshRenderComponent");
-	//Other Components.
-	classNames.insert("PlayerInputComponent");
+	ComponentLoader::register_names(classNames);
 	//Other Classes.
 	classNames.insert("Anim");
 	classNames.insert("AnimGraph");

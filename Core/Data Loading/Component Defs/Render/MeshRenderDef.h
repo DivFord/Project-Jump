@@ -2,24 +2,22 @@
 
 #include <string>
 
-#include "../../Tokeniser.h"
-#include "../../DataLoadingException.h"
+#include "../ComponentDef.h"
 
-struct MeshRenderDef
+struct MeshRenderDef : public ComponentDef
 {
 	std::string fileName;
 
 	MeshRenderDef(Tokeniser& tokeniser)
 	{
-		//Check for opening bracket.
 		tokeniser.pass_bracket("{");
 		Token current = tokeniser.get_current();
-		//Get file name.
 		if (current.type == Token::Type::STRING)
 			fileName = current.value;
 		else
 			throw DataLoadingException::value_mismatch(current, "string");
-		//Check for closing bracket.
-		tokeniser.pass_bracket("}", true);
+		tokeniser.pass_bracket("}");
 	};
+
+	ComponentDef::Type get_type() override { return ComponentDef::Type::MESH_RENDER; };
 };

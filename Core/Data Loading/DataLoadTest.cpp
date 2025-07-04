@@ -4,13 +4,12 @@
 
 #include "Tokeniser.h"
 #include "Token.h"
-#include "Component Defs/Physics/FixedShapePhysicsDef.h"
-#include "Component Defs/Render/MeshRenderDef.h"
+#include "EntityDef.h"
 
 DataLoadTest::DataLoadTest(bool printTokens)
 {
 	Tokeniser tokeniser;
-	tokeniser.process_file("TestData.txt");
+	tokeniser.process_file("Platform.txt");
 
 	if (printTokens)
 	{
@@ -25,15 +24,7 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			FixedShapePhysicsDef fixedShape(tokeniser);
-			for (const ShapeDef& shape : fixedShape.shapes)
-			{
-				std::cout << shape << '\n';
-			}
-			
-			tokeniser.pass_separator();
-			MeshRenderDef meshRender(tokeniser);
-			std::cout << meshRender.fileName << '\n';
+			EntityDef entity(tokeniser);
 		}
 		catch (DataLoadingException& e)
 		{

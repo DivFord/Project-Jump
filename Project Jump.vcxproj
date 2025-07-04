@@ -148,6 +148,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Data Loading\ComponentLoader.cpp" />
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
     <ClCompile Include="Core\Animation\AnimNode.cpp" />
     <ClCompile Include="Core\Animation\BlendAnimNode.cpp" />
@@ -168,6 +169,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Animation\DrivenPoseAnimNode.cpp" />
     <ClCompile Include="Core\Animation\CurrentAnim.cpp" />
     <ClCompile Include="Core\Data Loading\DataLoadTest.cpp" />
+    <ClCompile Include="Core\Data Loading\EntityDef.cpp" />
     <ClCompile Include="Project Jump.cpp" />
     <ClCompile Include="Core\Animation\SingleAnimNode.cpp" />
     <ClCompile Include="Core\Animation\StateMachineAnimNode.cpp" />
@@ -175,6 +177,8 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Data Loading\VariableLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Data Loading\ComponentLoader.h" />
+    <ClInclude Include="Core\Data Loading\Component Defs\ComponentDef.h" />
     <ClInclude Include="Core\Animation\AnimGraph.h" />
     <ClInclude Include="Core\Animation\AnimWeightName.h" />
     <ClInclude Include="Core\Animation\BlendAnimNode.h" />
@@ -210,6 +214,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\Data Loading\Tokeniser.h" />
     <ClInclude Include="Core\Data Loading\VariableLoader.h" />
     <ClInclude Include="Core\Data Loading\DataLoadTest.h" />
+    <ClInclude Include="Core\Data Loading\EntityDef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
