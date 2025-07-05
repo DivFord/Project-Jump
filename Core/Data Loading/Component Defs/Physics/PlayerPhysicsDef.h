@@ -57,4 +57,16 @@ struct PlayerPhysicsDef : public ComponentDef
 	};
 
 	ComponentDef::Type get_type() override { return ComponentDef::Type::PLAYER_PHYS; };
+
+	virtual std::ostream& output(std::ostream& os) const override
+	{
+		os << "PlayerPhysicsDef { ";
+		os << "Capsule Radius: " << capsuleRadius;
+		os << ", Capsule Height: " << capsuleHeight;
+		os << ", Step Height: " << stepHeight;
+		os << ", Max Speed: " << maxSpeed;
+		os << ", Accel: " << acceleration;
+		os << ", Deccel: " << decceleration << " }";
+		return os;
+	};
 };

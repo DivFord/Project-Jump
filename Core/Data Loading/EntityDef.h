@@ -9,10 +9,12 @@
 struct EntityDef
 {
 	std::string name;
-	ComponentDef physicsComponent;
-	ComponentDef renderComponent;
-	std::vector<ComponentDef> otherComponents;
+	ComponentDef* physicsComponent;
+	ComponentDef* renderComponent;
+	std::vector<ComponentDef*> otherComponents;
 
 	EntityDef(Tokeniser& tokeniser);
+
+	friend std::ostream& operator<<(std::ostream& os, const EntityDef& def);
 };
 

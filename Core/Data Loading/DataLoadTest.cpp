@@ -25,6 +25,7 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	{
 		try {
 			EntityDef entity(tokeniser);
+			std::cout << entity;
 		}
 		catch (DataLoadingException& e)
 		{

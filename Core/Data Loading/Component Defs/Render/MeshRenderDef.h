@@ -20,4 +20,10 @@ struct MeshRenderDef : public ComponentDef
 	};
 
 	ComponentDef::Type get_type() override { return ComponentDef::Type::MESH_RENDER; };
+
+	virtual std::ostream& output(std::ostream& os) const override
+	{
+		os << "MeshRenderDef { " << fileName << " }";
+		return os;
+	};
 };

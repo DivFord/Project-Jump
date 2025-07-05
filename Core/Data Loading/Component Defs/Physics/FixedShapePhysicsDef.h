@@ -22,4 +22,13 @@ struct FixedShapePhysicsDef : public ComponentDef
 	};
 
 	ComponentDef::Type get_type() override { return ComponentDef::Type::FIXED_SHAPE_PHYS; };
+
+	virtual std::ostream& output(std::ostream& os) const override
+	{
+		os << "FixedShapePhysicsDef {\n";
+		for (ShapeDef shape : shapes)
+			os << shape << '\n';
+		os << "}";
+		return os;
+	};
 };

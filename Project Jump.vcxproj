@@ -148,6 +148,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Data Loading\Component Defs\ComponentDef.cpp" />
     <ClCompile Include="Core\Data Loading\ComponentLoader.cpp" />
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
     <ClCompile Include="Core\Animation\AnimNode.cpp" />

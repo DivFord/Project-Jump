@@ -31,3 +31,14 @@ EntityDef::EntityDef(Tokeniser& tokeniser)
 
 	tokeniser.pass_bracket("}", true);
 };
+
+std::ostream& operator<<(std::ostream& os, const EntityDef& def)
+{
+	os << def.name << " {\n";
+	os << def.physicsComponent << '\n';
+	os << def.renderComponent << '\n';
+	for (ComponentDef* component : def.otherComponents)
+		os << component << '\n';
+	os << "}";
+	return os;
+}

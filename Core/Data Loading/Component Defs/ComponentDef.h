@@ -21,5 +21,10 @@ struct ComponentDef
 	};
 
 	virtual Type get_type() { return Type::UNSET; }
+
+	friend std::ostream& operator<<(std::ostream& os, const ComponentDef* def);
+
+protected:
+	virtual std::ostream& output(std::ostream& os) const = 0;
 };
 
