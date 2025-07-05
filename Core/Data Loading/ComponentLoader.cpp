@@ -17,33 +17,33 @@ void ComponentLoader::register_names(std::unordered_set<std::string>& names)
 	names.insert("PlayerInputComponent");
 };
 
-ComponentDef* ComponentLoader::load_physics_component(Tokeniser& tokeniser)
+std::unique_ptr<ComponentDef> ComponentLoader::load_physics_component(Tokeniser& tokeniser)
 {
 	Token current = tokeniser.get_current();
 	if (current.type != Token::Type::CLASS_NAME)
 		throw DataLoadingException::value_mismatch(current, "Component Name");
 
 	if (current.value == "FixedShapePhysicsComponent")
-		return new FixedShapePhysicsDef(tokeniser);
+		return std::make_unique<FixedShapePhysicsDef>(tokeniser);
 	if (current.value == "PlayerPhysicsComponent")
-		return new PlayerPhysicsDef(tokeniser);
+		return std::make_unique<PlayerPhysicsDef>(tokeniser);
 
 	throw DataLoadingException::undefined_class(current, "physics component");
 }
 
-ComponentDef* ComponentLoader::load_render_component(Tokeniser& tokeniser)
+std::unique_ptr<ComponentDef> ComponentLoader::load_render_component(Tokeniser& tokeniser)
 {
 	Token current = tokeniser.get_current();
 	if (current.type != Token::Type::CLASS_NAME)
 		throw DataLoadingException::value_mismatch(current, "Component Name");
 
 	if (current.value == "MeshRenderComponent")
-		return new MeshRenderDef(tokeniser);
+		return std::make_unique<MeshRenderDef>(tokeniser);
 
 	throw DataLoadingException::undefined_class(current, "render component");
 }
 
-ComponentDef* ComponentLoader::load_other_component(Tokeniser& tokeniser)
+std::unique_ptr<ComponentDef> ComponentLoader::load_other_component(Tokeniser& tokeniser)
 {
 	Token current = tokeniser.get_current();
 	if (current.type != Token::Type::CLASS_NAME)

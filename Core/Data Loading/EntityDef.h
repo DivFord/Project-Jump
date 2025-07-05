@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Component Defs/ComponentDef.h"
 
@@ -9,9 +10,9 @@
 struct EntityDef
 {
 	std::string name;
-	ComponentDef* physicsComponent;
-	ComponentDef* renderComponent;
-	std::vector<ComponentDef*> otherComponents;
+	std::unique_ptr<ComponentDef> physicsComponent;
+	std::unique_ptr<ComponentDef> renderComponent;
+	std::vector<std::unique_ptr<ComponentDef>> otherComponents;
 
 	EntityDef(Tokeniser& tokeniser);
 
