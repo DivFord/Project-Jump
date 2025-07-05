@@ -5,7 +5,7 @@
 /// Used by AnimatedRenderComponent to define a relationship
 /// between a Message and an AnimWeightName.
 /// </summary>
-static class InterpolationFunctions
+class InterpolationFunctions
 {
 
 public:

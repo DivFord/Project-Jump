@@ -111,6 +111,9 @@
     <ClCompile Include="Core\Data Loading\Component Defs\ComponentDef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Data Loading\Other Defs\AnimDefs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -228,6 +231,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\Component Defs\Render\AnimatedRenderDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\Other Defs\AnimDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

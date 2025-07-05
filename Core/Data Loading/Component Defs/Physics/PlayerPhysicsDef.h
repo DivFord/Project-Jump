@@ -20,8 +20,7 @@ struct PlayerPhysicsDef : public ComponentDef
 	
 	PlayerPhysicsDef(Tokeniser& tokeniser)
 	{
-		tokeniser.pass_bracket("{");
-		Token current = tokeniser.get_current();
+		Token current = tokeniser.pass_bracket("{");
 		while (current.type == Token::Type::VAR_NAM)
 		{
 			std::string varName = current.value;

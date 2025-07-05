@@ -1,7 +1,1 @@
-TestData {
-	PlayerPhysicsComponent
-	{
-		
-	}
-	MeshRenderComponent {"Terrain/Platform_Circle"}
-}
+Anim("Run", TRUE)

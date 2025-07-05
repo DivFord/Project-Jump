@@ -12,6 +12,7 @@ struct Token
 		BRACKET,
 		SEPARATOR,
 		NUMBER,
+		BOOLEAN,
 		OPERATOR,
 		STRING,
 		VAR_NAM,
@@ -46,6 +47,9 @@ struct Token
 			break;
 		case Type::NUMBER:
 			r = "Number: ";
+			break;
+		case Type::BOOLEAN:
+			r = "Boolean: ";
 			break;
 		case Type::OPERATOR:
 			r = "Operator: ";

@@ -28,6 +28,6 @@ public:
 	Token get_next();
 	Token get_next(Token::Type tokenType, bool currentIncluded = false);
 	Token get_next(std::string tokenValue, bool currentIncluded = false);
-	void pass_bracket(std::string bracket, bool currentIncluded = false);
+	Token pass_bracket(std::string bracket, bool currentIncluded = false);
 	Token pass_separator();
 };

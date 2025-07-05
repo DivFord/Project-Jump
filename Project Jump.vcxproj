@@ -153,6 +153,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClCompile Include="Core\Animation\AnimGraph.cpp" />
     <ClCompile Include="Core\Animation\AnimNode.cpp" />
     <ClCompile Include="Core\Animation\BlendAnimNode.cpp" />
+    <ClCompile Include="Core\Data Loading\Other Defs\AnimDefs.cpp" />
     <ClCompile Include="Core\Data Loading\Other Defs\ShapeDef.cpp" />
     <ClCompile Include="Core\RenderComponents\AnimatedRenderComponent.cpp" />
     <ClCompile Include="Core\Bullet Extension\btPlatformerController.cpp" />
@@ -189,6 +190,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
     <ClInclude Include="Core\Data Loading\Component Defs\Physics\FixedShapePhysicsDef.h" />
     <ClInclude Include="Core\Data Loading\Component Defs\Render\MeshRenderDef.h" />
     <ClInclude Include="Core\Data Loading\DataLoadingException.h" />
+    <ClInclude Include="Core\Data Loading\Other Defs\AnimDefs.h" />
     <ClInclude Include="Core\Data Loading\Token.h" />
     <ClInclude Include="Core\Data Loading\Other Defs\ShapeDef.h" />
     <ClInclude Include="Core\RenderComponents\AnimatedRenderComponent.h" />

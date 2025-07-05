@@ -5,6 +5,7 @@
 #include "Tokeniser.h"
 #include "Token.h"
 #include "EntityDef.h"
+#include "Other Defs/AnimDefs.h"
 
 DataLoadTest::DataLoadTest(bool printTokens)
 {
@@ -24,8 +25,8 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			EntityDef entity(tokeniser);
-			std::cout << entity;
+			AnimDef anim(tokeniser);
+			std::cout << anim << '\n';
 		}
 		catch (DataLoadingException& e)
 		{

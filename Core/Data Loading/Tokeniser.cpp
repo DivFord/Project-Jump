@@ -124,7 +124,9 @@ void Tokeniser::process_line(const char* line, int lineNumber)
 			while (!char_breaks_string(*next, false))
 				next++;
 			std::string val(line, next - line);
-			if (classNames.count(val) > 0)
+			if (val == "TRUE" || val == "FALSE")
+				output.push(Token(Token::Type::BOOLEAN, val, lineNumber));
+			else if (classNames.count(val) > 0)
 				output.push(Token(Token::Type::CLASS_NAME, val, lineNumber));
 			else
 				output.push(Token(Token::Type::VAR_NAM, val, lineNumber));
@@ -199,12 +201,13 @@ Token Tokeniser::get_next(std::string tokenValue, bool currentIncluded)
 	return get_current();
 };
 
-void Tokeniser::pass_bracket(std::string bracket, bool currentIncluded)
+Token Tokeniser::pass_bracket(std::string bracket, bool currentIncluded)
 {
 	Token next = get_next(bracket, currentIncluded);
 	if (next.unset())
 		throw DataLoadingException::missing_bracket(next);
-	advance();
+	next = get_next();
+	return next;
 };
 
 Token Tokeniser::pass_separator()

@@ -10,8 +10,7 @@ struct MeshRenderDef : public ComponentDef
 
 	MeshRenderDef(Tokeniser& tokeniser)
 	{
-		tokeniser.pass_bracket("{");
-		Token current = tokeniser.get_current();
+		Token current = tokeniser.pass_bracket("{");
 		if (current.type == Token::Type::STRING)
 			fileName = current.value;
 		else

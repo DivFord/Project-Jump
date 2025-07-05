@@ -11,8 +11,7 @@ struct FixedShapePhysicsDef : public ComponentDef
 
 	FixedShapePhysicsDef(Tokeniser& tokeniser)
 	{
-		tokeniser.pass_bracket("{");
-		Token current = tokeniser.get_current();
+		Token current = tokeniser.pass_bracket("{");
 		while (current.type == Token::Type::CLASS_NAME && current.value == "Shape")
 		{
 			shapes.push_back(VariableLoader::load_shape(tokeniser));
@@ -26,8 +25,8 @@ struct FixedShapePhysicsDef : public ComponentDef
 	virtual std::ostream& output(std::ostream& os) const override
 	{
 		os << "FixedShapePhysicsDef {\n";
-		for (ShapeDef shape : shapes)
-			os << shape << '\n';
+		for (int i = 0; i < shapes.size(); i++)
+			os << shapes[i] << '\n';
 		os << "}";
 		return os;
 	};

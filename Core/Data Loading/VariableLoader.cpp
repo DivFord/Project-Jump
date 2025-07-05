@@ -11,8 +11,8 @@
 bool VariableLoader::load_bool(Tokeniser& tokeniser)
 {
 	Token current = tokeniser.get_current();
-	if (current.type != Token::Type::VAR_NAM)
-		throw DataLoadingException::value_mismatch(current, "string (boolean)");
+	if (current.type != Token::Type::BOOLEAN)
+		throw DataLoadingException::value_mismatch(current, "boolean");
 	if (current.value == "TRUE")
 		return true;
 	else if (current.value == "FALSE")
@@ -104,8 +104,7 @@ double VariableLoader::load_number(Tokeniser& tokeniser)
 LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 {
 	//Find the opening bracket.
-	tokeniser.pass_bracket("(");
-	Token current = tokeniser.get_current();
+	Token current = tokeniser.pass_bracket("(");
 	//Find up to three numbers.
 	double vals[3]{ 0 };
 	int i = 0;
@@ -131,8 +130,7 @@ LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 ShapeDef VariableLoader::load_shape(Tokeniser& tokeniser)
 {
 	//Find the opening bracket.
-	tokeniser.pass_bracket("(");
-	Token current = tokeniser.get_current();
+	Token current = tokeniser.pass_bracket("(");
 	//Get the shape type.
 	ShapeDef::Type type = ShapeDef::Type::SPHERE;
 	if (current.type == Token::Type::STRING)
