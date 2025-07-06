@@ -25,7 +25,7 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			AnimDef anim(tokeniser);
+			AnimDef* anim = AnimDef::load_anim(tokeniser);
 			std::cout << anim << '\n';
 		}
 		catch (DataLoadingException& e)
