@@ -117,6 +117,9 @@
     <ClCompile Include="Core\Animation\AnimWeightName.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Animation\Comparator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -237,6 +240,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\Other Defs\AnimDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Animation\Comparator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

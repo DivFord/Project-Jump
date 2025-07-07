@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AnimNode.h"
+#include "Comparator.h"
 
 #include <vector>
 #include <unordered_map>
@@ -12,28 +13,17 @@
 /// </summary>
 class StateMachineAnimNode : public AnimNode
 {
-public:
-	enum class Comparator
-	{
-		LESS_THAN,
-		LESS_THAN_EQUALS,
-		EQUALS,
-		GREATER_THAN_EQUALS,
-		GREATER_THAN
-	};
-
-private:
 	struct Transition
 	{
 		AnimWeightName triggerWeight = AnimWeightName::FREE_1;
-		float minValue = FLT_MIN;
-		float maxValue = 0.5f;
+		ComparisonWindow comparison{};
 		int connectedState = 0;
 		float transitionTime = 0.5f;
 
 		Transition() {};
 
 		Transition(AnimWeightName triggerWeight, Comparator triggerComparator, float triggerValue, int connectedState, float transitionTime);
+		Transition(AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, int conneectedState, float transitionTime);
 	};
 
 	std::vector<AnimNode*> states;

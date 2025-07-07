@@ -5,33 +5,13 @@
 StateMachineAnimNode::Transition::Transition(AnimWeightName triggerWeight, Comparator triggerComparator, float triggerValue, int connectedState, float transitionTime) :
 	triggerWeight{ triggerWeight }, connectedState{ connectedState }, transitionTime{ transitionTime }
 {
-	switch (triggerComparator)
-	{
-	case Comparator::LESS_THAN:
-		minValue = FLT_MIN;
-		maxValue = triggerValue;
-		break;
+	comparison = ComparisonWindow(triggerComparator, triggerValue);
+}
 
-	case Comparator::LESS_THAN_EQUALS:
-		minValue = FLT_MIN;
-		maxValue = triggerValue + FLT_EPSILON;
-		break;
-
-	case Comparator::EQUALS:
-		minValue = triggerValue - FLT_EPSILON;
-		maxValue = triggerValue + FLT_EPSILON;
-		break;
-
-	case Comparator::GREATER_THAN_EQUALS:
-		minValue = triggerValue - FLT_EPSILON;
-		maxValue = FLT_MAX;
-		break;
-
-	case Comparator::GREATER_THAN:
-		minValue = triggerValue;
-		maxValue = FLT_MAX;
-		break;
-	}
+StateMachineAnimNode::Transition::Transition(AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, int connectedState, float transitionTime) :
+	triggerWeight{ triggerWeight }, connectedState{ connectedState }, transitionTime{ transitionTime }
+{
+	comparison = ComparisonWindow(triggerComparator, triggerValue);
 }
 
 StateMachineAnimNode::StateMachineAnimNode(AnimNode* startStateAnim, AnimGraph* animGraph) : AnimNode(animGraph)
@@ -81,7 +61,7 @@ void StateMachineAnimNode::check_triggers()
 	for (const Transition& transition : transitions[currentState])
 	{
 		float weight = get_weight(transition.triggerWeight);
-		if (weight > transition.minValue && weight < transition.maxValue)
+		if (transition.comparison.compare(weight))
 		{
 			nextState = transition.connectedState;
 			transitionTimer = 0;

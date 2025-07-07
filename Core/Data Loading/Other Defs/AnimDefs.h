@@ -40,7 +40,7 @@ struct StateMachineDef : public AnimDef
 {
 	struct Transition
 	{
-
+		AnimWeightName weightName;
 	};
 
 

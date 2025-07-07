@@ -58,8 +58,8 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 
 	auto stateMachine = new StateMachineAnimNode(groundBlend, animGraph);
 	stateMachine->add_state(airBlend);
-	stateMachine->add_transition(0, 1, AnimWeightName::GROUND_DIST, StateMachineAnimNode::Comparator::GREATER_THAN, 0.05f, 0.1f);
-	stateMachine->add_transition(1, 0, AnimWeightName::GROUND_DIST, StateMachineAnimNode::Comparator::LESS_THAN, 0.03f, 0.1f);
+	stateMachine->add_transition(0, 1, AnimWeightName::GROUND_DIST, Comparator::GREATER_THAN, 0.05f, 0.1f);
+	stateMachine->add_transition(1, 0, AnimWeightName::GROUND_DIST, Comparator::LESS_THAN, 0.03f, 0.1f);
 	animGraph->add_layer(stateMachine);
 	
 	pcRender->set_anim_graph(animGraph);
