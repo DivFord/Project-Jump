@@ -1,5 +1,5 @@
 Blend (
 	Anim("Run", TRUE),
 	Anim("Walk", FALSE),
-	SPEED
+	MOVE_SPEED
 )

@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../Tokeniser.h"
+#include "../../Animation/AnimWeightName.h"
 
 struct AnimDef
 {
@@ -28,9 +29,19 @@ struct BlendDef : public AnimDef
 {
 	AnimDef* leftAnim;
 	AnimDef* rightAnim;
-	std::string weightName;
+	AnimWeightName weightName;
 
 	BlendDef(Tokeniser& tokeniser);
 
 	virtual std::ostream& output(std::ostream& os) const override;
+};
+
+struct StateMachineDef : public AnimDef
+{
+	struct Transition
+	{
+
+	};
+
+
 };

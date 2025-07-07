@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum class AnimWeightName
 {
 	FREE_1,
@@ -12,3 +14,6 @@ enum class AnimWeightName
 	VERT_SPEED,
 	GROUND_DIST,
 };
+
+AnimWeightName str_to_anim_weight(std::string name);
+std::string anim_weight_to_str(AnimWeightName animWeight);

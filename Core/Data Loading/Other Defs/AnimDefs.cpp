@@ -6,7 +6,7 @@
 std::ostream& operator<<(std::ostream& os, const AnimDef* def)
 {
 	return def->output(os);
-}
+};
 
 AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 {
@@ -20,7 +20,7 @@ AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 		return new BlendDef(tokeniser);
 
 	throw DataLoadingException::bad_value(current);
-}
+};
 
 SimpleAnimDef::SimpleAnimDef(Tokeniser& tokeniser)
 {
@@ -57,11 +57,16 @@ BlendDef::BlendDef(Tokeniser& tokeniser)
 	if (current.type != Token::Type::VAR_NAM)
 		throw DataLoadingException::value_mismatch(current, "variable name (weight name)");
 	
-	weightName = current.value;
+	try {
+		weightName = str_to_anim_weight(current.value);
+	}
+	catch (...) {
+		throw DataLoadingException::bad_value(current);
+	}
 };
 
 std::ostream& BlendDef::output(std::ostream& os) const
 {
-	os << "Blend (\n" << leftAnim << '\n' << rightAnim << '\n' << weightName << "\n)";
+	os << "Blend (\n" << leftAnim << '\n' << rightAnim << '\n' << anim_weight_to_str(weightName) << "\n)";
 	return os;
 };
