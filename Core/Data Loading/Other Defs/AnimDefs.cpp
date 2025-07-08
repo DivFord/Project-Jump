@@ -3,6 +3,7 @@
 #include "../DataLoadingException.h"
 #include "../VariableLoader.h"
 
+#pragma region AnimDef
 std::ostream& operator<<(std::ostream& os, const AnimDef* def)
 {
 	return def->output(os);
@@ -23,7 +24,9 @@ AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 
 	throw DataLoadingException::bad_value(current);
 };
+#pragma endregion
 
+#pragma region SimpleAnimDef
 SimpleAnimDef::SimpleAnimDef(Tokeniser& tokeniser)
 {
 	tokeniser.pass_bracket("(");
@@ -39,7 +42,9 @@ std::ostream& SimpleAnimDef::output(std::ostream& os) const
 	os << "Anim (" << animName << ", " << (looping ? "LOOPING" : "NOT LOOPING") << ")";
 	return os;
 };
+#pragma endregion
 
+#pragma region BlendDef
 BlendDef::BlendDef(Tokeniser& tokeniser)
 {
 	Token current = tokeniser.pass_bracket("(");
@@ -56,7 +61,9 @@ std::ostream& BlendDef::output(std::ostream& os) const
 	os << "Blend (\n" << leftAnim << '\n' << rightAnim << '\n' << anim_weight_to_str(weightName) << "\n)";
 	return os;
 };
+#pragma endregion
 
+#pragma region StateMachineDef
 StateMachineDef::Transition::Transition(Tokeniser& tokeniser)
 {
 	tokeniser.pass_bracket("(");
@@ -117,3 +124,22 @@ std::ostream& StateMachineDef::output(std::ostream& os) const
 	os << ")";
 	return os;
 };
+#pragma endregion
+
+#pragma region WeightBinding
+WeightBindingDef::WeightBindingDef(Tokeniser& tokeniser)
+{
+	tokeniser.pass_bracket("(");
+	messageType = VariableLoader::load_message(tokeniser);
+	tokeniser.pass_separator();
+	weightName = VariableLoader::load_anim_weight(tokeniser);
+	tokeniser.pass_bracket(")");
+};
+
+std::ostream& operator<<(std::ostream& os, const WeightBindingDef& def)
+{
+	os << "WeightBinding (" << Message::message_to_str(def.messageType)
+		<< ", " << anim_weight_to_str(def.weightName) << ")";
+	return os;
+};
+#pragma endregion

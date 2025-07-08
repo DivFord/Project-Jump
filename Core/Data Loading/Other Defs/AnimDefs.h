@@ -5,6 +5,7 @@
 
 #include "../Tokeniser.h"
 #include "../../Animation/AnimWeightName.h"
+#include "../../Entities/Message.h"
 
 struct AnimDef
 {
@@ -60,4 +61,14 @@ struct StateMachineDef : public AnimDef
 	~StateMachineDef();
 
 	virtual std::ostream& output(std::ostream& os) const override;
+};
+
+struct WeightBindingDef
+{
+	Message::MessageType messageType = Message::MessageType::UNSET;
+	AnimWeightName weightName = AnimWeightName::FREE_1;
+
+	WeightBindingDef(Tokeniser& tokeniser);
+
+	friend std::ostream& operator<<(std::ostream&, const WeightBindingDef& def);
 };

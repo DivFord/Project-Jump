@@ -8,24 +8,22 @@ Player {
 	AnimatedRenderComponent {
 		"Player/LilPiggy", v3(0, 0, -0.5 * 1.7),
 
-		AnimGraph (
-			StateMachine(
-				#0: Ground Blend
-				Blend(
-					Anim("Idle", TRUE),
-					Anim("Run", TRUE),
-					MOVE_SPEED				
-				),
-				#1: Air Blend
-				Blend(
-					Driven("Jump", GROUND_DIST),
-					Driven("Fall", GROUND_DIST),
-					VERT_SPEED
-				),
-					
-				Transition(0,1, GROUND_DIST > 0.05, 0.1),
-				Transition(1,0, GROUND_DIST < 0.03, 0.1)
-			)
+		StateMachine(
+			#0: Ground Blend
+			Blend(
+				Anim("Idle", TRUE),
+				Anim("Run", TRUE),
+				MOVE_SPEED				
+			),
+			#1: Air Blend
+			Blend(
+				Driven("Jump", GROUND_DIST),
+				Driven("Fall", GROUND_DIST),
+				VERT_SPEED
+			),
+				
+			Transition(0,1, GROUND_DIST > 0.05, 0.1),
+			Transition(1,0, GROUND_DIST < 0.03, 0.1)
 		),
 
 		WeightBind(MOVE_SPEED, MOVE_SPEED, LINEAR),

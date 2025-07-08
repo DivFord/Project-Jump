@@ -25,8 +25,8 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			AnimDef* anim = AnimDef::load_anim(tokeniser);
-			std::cout << anim << '\n';
+			WeightBindingDef binding(tokeniser);
+			std::cout << binding;
 		}
 		catch (DataLoadingException& e)
 		{

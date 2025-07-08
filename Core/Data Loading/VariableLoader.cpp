@@ -145,6 +145,20 @@ AnimWeightName VariableLoader::load_anim_weight(Tokeniser& tokeniser)
 };
 #pragma endregion
 
+#pragma region Load Message
+Message::MessageType VariableLoader::load_message(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::VAR_NAM)
+		throw DataLoadingException::value_mismatch(current, "variable name (message type)");
+	Message::MessageType type = Message::str_to_message(current.value);
+	if (type == Message::MessageType::UNSET)
+		throw DataLoadingException::bad_value(current);
+	tokeniser.advance();
+	return type;
+}
+#pragma endregion
+
 #pragma region Load Vector
 LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 {
