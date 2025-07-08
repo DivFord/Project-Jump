@@ -4,6 +4,9 @@
 #include "Component Defs/Physics/PlayerPhysicsDef.h"
 
 #include "Component Defs/Render/MeshRenderDef.h"
+#include "Component Defs/Render/AnimatedRenderDef.h"
+
+#include "Component Defs/Other/PlayerInputDef.h"
 
 void ComponentLoader::register_names(std::unordered_set<std::string>& names)
 {
@@ -39,6 +42,8 @@ std::unique_ptr<ComponentDef> ComponentLoader::load_render_component(Tokeniser& 
 
 	if (current.value == "MeshRenderComponent")
 		return std::make_unique<MeshRenderDef>(tokeniser);
+	if (current.value == "AnimatedRenderComponent")
+		return std::make_unique<AnimatedRenderDef>(tokeniser);
 
 	throw DataLoadingException::undefined_class(current, "render component");
 }
@@ -49,8 +54,8 @@ std::unique_ptr<ComponentDef> ComponentLoader::load_other_component(Tokeniser& t
 	if (current.type != Token::Type::CLASS_NAME)
 		throw DataLoadingException::value_mismatch(current, "Component Name");
 
-	//if (current.value == "FixedShapePhysicsComponent")
-	//	return FixedShapePhysicsDef(tokeniser);
+	if (current.value == "PlayerInputComponent")
+		return std::make_unique<PlayerInputDef>(tokeniser);
 
 	throw DataLoadingException::undefined_class(current, "general component");
 }

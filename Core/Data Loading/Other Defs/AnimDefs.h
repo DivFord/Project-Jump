@@ -63,6 +63,16 @@ struct StateMachineDef : public AnimDef
 	virtual std::ostream& output(std::ostream& os) const override;
 };
 
+struct DrivenAnimDef : public AnimDef
+{
+	std::string animName;
+	AnimWeightName driverWeight;
+
+	DrivenAnimDef(Tokeniser& tokeniser);
+
+	virtual std::ostream& output(std::ostream& os) const override;
+};
+
 struct WeightBindingDef
 {
 	Message::MessageType messageType = Message::MessageType::UNSET;

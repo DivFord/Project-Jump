@@ -16,8 +16,10 @@ struct ComponentDef
 
 		//Render Components.
 		MESH_RENDER,
+		ANIMATED_RENDER,
 
 		//Other Components.
+		PLAYER_INPUT,
 	};
 
 	virtual Type get_type() { return Type::UNSET; }

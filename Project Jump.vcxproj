@@ -182,6 +182,7 @@ XCOPY "$(SolutionDir)Data" "$(TargetDir)\Data\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Animation\Comparator.h" />
+    <ClInclude Include="Core\Data Loading\Component Defs\Other\PlayerInputDef.h" />
     <ClInclude Include="Core\Data Loading\Component Defs\Render\AnimatedRenderDef.h" />
     <ClInclude Include="Core\Data Loading\ComponentLoader.h" />
     <ClInclude Include="Core\Data Loading\Component Defs\ComponentDef.h" />

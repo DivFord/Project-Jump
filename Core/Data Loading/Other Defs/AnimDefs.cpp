@@ -21,6 +21,8 @@ AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 		return new BlendDef(tokeniser);
 	if (current.value == "StateMachine")
 		return new StateMachineDef(tokeniser);
+	if (current.value == "Driven")
+		return new DrivenAnimDef(tokeniser);
 
 	throw DataLoadingException::bad_value(current);
 };
@@ -34,7 +36,7 @@ SimpleAnimDef::SimpleAnimDef(Tokeniser& tokeniser)
 	Token current = tokeniser.pass_separator();
 	if (current.type == Token::Type::BOOLEAN)
 		looping = VariableLoader::load_bool(tokeniser);
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 };
 
 std::ostream& SimpleAnimDef::output(std::ostream& os) const
@@ -47,13 +49,13 @@ std::ostream& SimpleAnimDef::output(std::ostream& os) const
 #pragma region BlendDef
 BlendDef::BlendDef(Tokeniser& tokeniser)
 {
-	Token current = tokeniser.pass_bracket("(");
+	tokeniser.pass_bracket("(");
 	leftAnim = AnimDef::load_anim(tokeniser);
-	current = tokeniser.pass_separator();
+	tokeniser.pass_separator();
 	rightAnim = AnimDef::load_anim(tokeniser);
-	current = tokeniser.pass_separator();
+	tokeniser.pass_separator();
 	weightName = VariableLoader::load_anim_weight(tokeniser);
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 };
 
 std::ostream& BlendDef::output(std::ostream& os) const
@@ -77,7 +79,7 @@ StateMachineDef::Transition::Transition(Tokeniser& tokeniser)
 	triggerValue = VariableLoader::load_float(tokeniser);
 	tokeniser.pass_separator();
 	transitionTime = VariableLoader::load_float(tokeniser);
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 };
 
 std::ostream& operator<<(std::ostream& os, const StateMachineDef::Transition& def)
@@ -95,13 +97,14 @@ StateMachineDef::StateMachineDef(Tokeniser& tokeniser)
 	Token current = tokeniser.pass_bracket("(");
 	while (current.type == Token::Type::CLASS_NAME)
 	{
+		std::cout << current.value << '\n';
 		if (current.value == "Transition")
 			transitions->push_back(Transition(tokeniser));
 		else
 			states->push_back(AnimDef::load_anim(tokeniser));
 		current = tokeniser.pass_separator();
 	}
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 };
 
 StateMachineDef::~StateMachineDef()
@@ -126,6 +129,23 @@ std::ostream& StateMachineDef::output(std::ostream& os) const
 };
 #pragma endregion
 
+#pragma region DrivenAnim
+DrivenAnimDef::DrivenAnimDef(Tokeniser& tokeniser)
+{
+	tokeniser.pass_bracket("(");
+	animName = VariableLoader::load_string(tokeniser);
+	tokeniser.pass_separator();
+	driverWeight = VariableLoader::load_anim_weight(tokeniser);
+	tokeniser.pass_bracket(")");
+}
+
+std::ostream& DrivenAnimDef::output(std::ostream& os) const
+{
+	os << "Driven (" << animName << ", " << anim_weight_to_str(driverWeight) << ")";
+	return os;
+}
+#pragma endregion
+
 #pragma region WeightBinding
 WeightBindingDef::WeightBindingDef(Tokeniser& tokeniser)
 {
@@ -133,7 +153,7 @@ WeightBindingDef::WeightBindingDef(Tokeniser& tokeniser)
 	messageType = VariableLoader::load_message(tokeniser);
 	tokeniser.pass_separator();
 	weightName = VariableLoader::load_anim_weight(tokeniser);
-	tokeniser.pass_bracket(")");
+	tokeniser.pass_bracket(")", true);
 };
 
 std::ostream& operator<<(std::ostream& os, const WeightBindingDef& def)

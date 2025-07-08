@@ -10,7 +10,7 @@
 DataLoadTest::DataLoadTest(bool printTokens)
 {
 	Tokeniser tokeniser;
-	tokeniser.process_file("TestData.txt");
+	tokeniser.process_file("Player.txt");
 
 	if (printTokens)
 	{
@@ -25,8 +25,8 @@ DataLoadTest::DataLoadTest(bool printTokens)
 	else
 	{
 		try {
-			WeightBindingDef binding(tokeniser);
-			std::cout << binding;
+			EntityDef entity(tokeniser);
+			std::cout << entity;
 		}
 		catch (DataLoadingException& e)
 		{

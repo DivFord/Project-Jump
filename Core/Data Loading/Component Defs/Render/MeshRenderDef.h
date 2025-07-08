@@ -10,11 +10,8 @@ struct MeshRenderDef : public ComponentDef
 
 	MeshRenderDef(Tokeniser& tokeniser)
 	{
-		Token current = tokeniser.pass_bracket("{");
-		if (current.type == Token::Type::STRING)
-			fileName = current.value;
-		else
-			throw DataLoadingException::value_mismatch(current, "string");
+		tokeniser.pass_bracket("{");
+		fileName = VariableLoader::load_string(tokeniser);
 		tokeniser.pass_bracket("}");
 	};
 

@@ -245,5 +245,8 @@
     <ClInclude Include="Core\Animation\Comparator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Data Loading\Component Defs\Other\PlayerInputDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

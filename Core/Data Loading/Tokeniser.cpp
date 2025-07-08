@@ -50,7 +50,7 @@ inline static bool char_is_number(char character)
 
 inline static bool char_breaks_string(char character, bool inQuotes = true)
 {
-	return (character == ' ' || character == '(' || character == ')' || character == '{' || character == '}'
+	return (character == ' ' || character == '\t' || character == '(' || character == ')' || character == '{' || character == '}'
 		|| character == '\0' || (!inQuotes && character == ','));
 };
 
