@@ -53,4 +53,6 @@ ComparisonWindow::ComparisonWindow(std::string comparator, float value)
 		init(this, Comparator::GREATER_THAN_EQUALS, value);
 	else if (comparator == ">")
 		init(this, Comparator::GREATER_THAN, value);
+	else
+		throw;
 }

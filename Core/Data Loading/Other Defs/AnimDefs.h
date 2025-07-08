@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "../Tokeniser.h"
 #include "../../Animation/AnimWeightName.h"
@@ -40,8 +41,23 @@ struct StateMachineDef : public AnimDef
 {
 	struct Transition
 	{
-		AnimWeightName weightName;
+		int fromState = 0;
+		int toState = 1;
+		AnimWeightName weightName = AnimWeightName::FREE_1;
+		std::string triggerComparator = "=";
+		float triggerValue = 1;
+		float transitionTime = 0.1f;
+
+		Transition(Tokeniser& tokeniser);
+
+		friend std::ostream& operator<<(std::ostream& os, const Transition& def);
 	};
 
+	std::vector<AnimDef*>* states;
+	std::vector<Transition>* transitions;
 
+	StateMachineDef(Tokeniser& tokeniser);
+	~StateMachineDef();
+
+	virtual std::ostream& output(std::ostream& os) const override;
 };

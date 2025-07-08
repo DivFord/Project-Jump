@@ -94,9 +94,54 @@ static double parse_numeric_expression(Tokeniser& tokeniser, int maxPrecedence)
 	return lhs;
 };
 
-double VariableLoader::load_number(Tokeniser& tokeniser)
+double VariableLoader::load_numeric_expression(Tokeniser& tokeniser)
 {
 	return parse_numeric_expression(tokeniser, 0);
+};
+
+float VariableLoader::load_float(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::NUMBER)
+		throw DataLoadingException::value_mismatch(current, "number");
+	tokeniser.advance();
+	return std::stof(current.value);
+};
+
+int VariableLoader::load_int(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::NUMBER)
+		throw DataLoadingException::value_mismatch(current, "number");
+	tokeniser.advance();
+	return std::stoi(current.value);
+};
+#pragma endregion
+
+#pragma region Load String
+std::string VariableLoader::load_string(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::STRING)
+		throw DataLoadingException::value_mismatch(current, "string");
+	tokeniser.advance();
+	return current.value;
+};
+#pragma endregion
+
+#pragma region Load AnimWeight
+AnimWeightName VariableLoader::load_anim_weight(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::VAR_NAM)
+		throw DataLoadingException::value_mismatch(current, "variable name (weight name)");
+	try {
+		tokeniser.advance();
+		return str_to_anim_weight(current.value);
+	}
+	catch (...) {
+		throw DataLoadingException::bad_value(current);
+	}
 };
 #pragma endregion
 
@@ -113,7 +158,7 @@ LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 		if (current.type == Token::Type::SEPARATOR)
 			current = tokeniser.get_next();
 		else if (current.type == Token::Type::NUMBER || current.type == Token::Type::BRACKET) {
-			vals[i++] = load_number(tokeniser);
+			vals[i++] = load_numeric_expression(tokeniser);
 			current = tokeniser.get_current();
 		}
 		else
@@ -152,7 +197,7 @@ ShapeDef VariableLoader::load_shape(Tokeniser& tokeniser)
 	int i = 0;
 	while (i < 3 && current.type == Token::Type::NUMBER)
 	{
-		vals[i++] = load_number(tokeniser);
+		vals[i++] = load_numeric_expression(tokeniser);
 		current = tokeniser.pass_separator();
 	}
 	//Get the position.

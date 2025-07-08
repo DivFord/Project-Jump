@@ -23,7 +23,7 @@ class StateMachineAnimNode : public AnimNode
 		Transition() {};
 
 		Transition(AnimWeightName triggerWeight, Comparator triggerComparator, float triggerValue, int connectedState, float transitionTime);
-		Transition(AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, int conneectedState, float transitionTime);
+		Transition(AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, int connectedState, float transitionTime);
 	};
 
 	std::vector<AnimNode*> states;

@@ -1,5 +1,15 @@
-Blend (
-	Anim("Run", TRUE),
-	Anim("Walk", FALSE),
-	MOVE_SPEED
+StateMachine (
+	Blend (
+		Anim("Run", TRUE),
+		Anim("Walk", FALSE),
+		MOVE_SPEED
+	),
+	Blend (
+		Anim("Jump", FALSE),
+		Anim("Fall", FALSE),
+		GROUND_DIST
+	),
+
+	Transition (0, 1, GROUND_DIST > 0.2, 0.1),
+	Transition (1, 0, GROUND_DIST < 0.1, 0.1)
 )
