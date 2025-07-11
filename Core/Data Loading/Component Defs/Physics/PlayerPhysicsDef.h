@@ -81,7 +81,7 @@ struct PlayerPhysicsDef : public ComponentDef
 	};
 
 	int shape_count() const override { return 1; };
-	ShapeDef get_shape(int index) { return capsule; };
+	ShapeDef get_shape(int index) const override { return capsule; };
 
 	virtual std::ostream& output(std::ostream& os) const override
 	{

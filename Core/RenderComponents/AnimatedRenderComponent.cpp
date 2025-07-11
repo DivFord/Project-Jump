@@ -16,7 +16,7 @@ AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFram
 
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, ComponentDef* def)
 {
-	model = window.load_model(parentNode, "Assets/" + def->get_file_name());
+	model = window.load_model(parentNode, "Assets/" + def->get_file_name() + ".bam");
 	model.set_pos(def->get_vector3());
 	auto_bind(model.node(), anims, ~0);
 	load_bundles(model);
