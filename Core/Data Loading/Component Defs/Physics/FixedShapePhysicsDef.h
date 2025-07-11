@@ -20,8 +20,20 @@ struct FixedShapePhysicsDef : public ComponentDef
 		tokeniser.pass_bracket("}");
 	};
 
-	ComponentDef::Type get_type() override { return ComponentDef::Type::FIXED_SHAPE_PHYS; };
+	ComponentDef::Type get_type() const override { return ComponentDef::Type::FIXED_SHAPE_PHYS; };
+	std::string get_type_str() const override { return "FixedShapePhysicsDef"; };
 
+	int shape_count() const override { return shapes.size(); };
+	ShapeDef get_shape(int index) const override
+	{
+		if (index < 0 || index >= shapes.size())
+		{
+			std::cout << "FixedShapePhys: Index " << index << " out of bounds.";
+			return ShapeDef();
+		}
+		return shapes[index];
+	};
+ 
 	virtual std::ostream& output(std::ostream& os) const override
 	{
 		os << "FixedShapePhysicsDef {\n";

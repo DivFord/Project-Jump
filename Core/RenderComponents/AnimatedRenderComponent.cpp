@@ -14,6 +14,15 @@ AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFram
 	load_bundles(model);
 };
 
+AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, ComponentDef* def)
+{
+	model = window.load_model(parentNode, "Assets/" + def->get_file_name());
+	model.set_pos(def->get_vector3());
+	auto_bind(model.node(), anims, ~0);
+	load_bundles(model);
+	//TODO: LOAD ANIM GRAPH.
+};
+
 void AnimatedRenderComponent::update(double deltaT)
 {
 	float rot = model.get_h();

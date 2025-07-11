@@ -7,8 +7,7 @@
 /// </summary>
 struct PlayerPhysicsDef : public ComponentDef
 {
-	float capsuleRadius = 0.5f;
-	float capsuleHeight = 1.5f;
+	ShapeDef capsule;
 
 	float stepHeight = 0.25f;
 
@@ -35,6 +34,9 @@ struct PlayerPhysicsDef : public ComponentDef
 				throw DataLoadingException::value_mismatch(current, "number");
 			float varVal = std::stof(current.value);
 
+			float capsuleRadius = 0.5f;
+			float capsuleHeight = 1.0f;
+
 			if (varName == "capsuleRadius")
 				capsuleRadius = varVal;
 			else if (varName == "capsuleHeight")
@@ -50,18 +52,42 @@ struct PlayerPhysicsDef : public ComponentDef
 			else
 				throw DataLoadingException::bad_value(nameToken);
 
+			capsule = ShapeDef(ShapeDef::Type::CAPSULE, capsuleRadius, capsuleHeight);
+
 			current = tokeniser.pass_separator();
 		}
 		tokeniser.pass_bracket("}");
 	};
 
-	ComponentDef::Type get_type() override { return ComponentDef::Type::PLAYER_PHYS; };
+	ComponentDef::Type get_type() const override { return ComponentDef::Type::PLAYER_PHYS; };
+	std::string get_type_str() const override { return "PlayerPhysicsDef"; };
+
+	float get_float(FloatID id) const override
+	{
+		switch (id)
+		{
+		case FloatID::SPEED:
+			return maxSpeed;
+		case FloatID::ACCEL:
+			return acceleration;
+		case FloatID::DECCEL:
+			return decceleration;
+		case FloatID::STEP_HEIGHT:
+			return stepHeight;
+
+		default:
+			return 0;
+		}
+	};
+
+	int shape_count() const override { return 1; };
+	ShapeDef get_shape(int index) { return capsule; };
 
 	virtual std::ostream& output(std::ostream& os) const override
 	{
 		os << "PlayerPhysicsDef { ";
-		os << "Capsule Radius: " << capsuleRadius;
-		os << ", Capsule Height: " << capsuleHeight;
+		os << "Capsule Radius: " << capsule.width;
+		os << ", Capsule Height: " << capsule.height;
 		os << ", Step Height: " << stepHeight;
 		os << ", Max Speed: " << maxSpeed;
 		os << ", Accel: " << acceleration;

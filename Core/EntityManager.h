@@ -6,6 +6,8 @@
 
 #include "Entities/Entity.h"
 
+#define SP std::shared_ptr
+
 /// <summary>
 /// An AsyncTask that maintains a list of entities, and updates them
 /// every frame.

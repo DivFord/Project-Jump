@@ -13,15 +13,8 @@
 
 int main(int argc, char* argv[])
 {
-    DataLoadTest dataTest(false);
-    /*Token outputToken = tokeniser.get_next();
-    while (outputToken.type != Token::Type::UNSET)
-    {
-        std::cout << outputToken.print() << '\n';
-        outputToken = tokeniser.get_next();
-    }*/
+    //DataLoadTest dataTest(true);
 
-    /*
     InitNewTypes();
 
     //Open a new window framework.
@@ -43,7 +36,6 @@ int main(int argc, char* argv[])
 
     //Close and exit.
     framework.close_framework();
-    */
 
     return 0;
 };

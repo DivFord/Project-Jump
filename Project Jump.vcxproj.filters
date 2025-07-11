@@ -120,6 +120,9 @@
     <ClCompile Include="Core\Animation\Comparator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Data Loading\DataLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Game.h">
@@ -246,6 +249,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Data Loading\Component Defs\Other\PlayerInputDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data Loading\DataLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

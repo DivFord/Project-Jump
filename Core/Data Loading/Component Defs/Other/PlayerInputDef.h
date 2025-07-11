@@ -9,7 +9,8 @@ struct PlayerInputDef : public ComponentDef
 		tokeniser.pass_bracket("}");
 	};
 
-	ComponentDef::Type get_type() override { return ComponentDef::Type::PLAYER_INPUT; };
+	ComponentDef::Type get_type() const override { return ComponentDef::Type::PLAYER_INPUT; };
+	std::string get_type_str() const override { return "PlayerInputDef"; };
 
 	virtual std::ostream& output(std::ostream& os) const override
 	{

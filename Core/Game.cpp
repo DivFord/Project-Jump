@@ -16,6 +16,8 @@
 #include "Animation/BlendAnimNode.h"
 #include "Animation/StateMachineAnimNode.h"
 
+#include "Data Loading/DataLoader.h"
+
 Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 {
 	physicsManager = new GamePhysicsManager();
@@ -25,25 +27,33 @@ Game::Game(PandaFramework& pandaFramework, WindowFramework& windowFramework)
 	task_mgr->add(physicsManager);
 	task_mgr->add(entityManager);
 
+	DataLoader dataLoader;
+
 	//TEMP CODE BELOW:
 
 	//physicsManager->create_debug(windowFramework.get_render());
 
 	//Make a test platform.
-	LVector3f pos(0, 0, -1);
-	auto physics = new FixedShapePhysicsComponent("Platform", windowFramework.get_render(), physicsManager, ShapeDef(ShapeDef::Type::CYLINDER, 2, 2, 0, pos));
-	auto render = new MeshRenderComponent(physics->get_node_path(), windowFramework, "Assets/Terrain/Platform_Circle.bam");
-	auto testPlatform = std::make_shared<Entity>(physics, render);
-	entityManager->add_entity(testPlatform);
+	//LVector3f pos(0, 0, -1);
+	//auto physics = new FixedShapePhysicsComponent("Platform", windowFramework.get_render(), physicsManager, ShapeDef(ShapeDef::Type::CYLINDER, 2, 2, 0, pos));
+	//auto render = new MeshRenderComponent(physics->get_node_path(), windowFramework, "Assets/Terrain/Platform_Circle.bam");
+	//auto testPlatform = std::make_shared<Entity>(physics, render);
+	EntityDef* platformDef = dataLoader.load_entity("Platform.txt", true);
+	auto testPlatform1 = std::make_shared<Entity>(platformDef, physicsManager, pandaFramework, windowFramework);
+	entityManager->add_entity(testPlatform1);
+	auto testPlatform2 = std::make_shared<Entity>(platformDef, physicsManager, pandaFramework, windowFramework);
+	entityManager->add_entity(testPlatform2);
+	testPlatform2->set_pos(5, 0, 1);
+	auto testPlatform3 = std::make_shared<Entity>(platformDef, physicsManager, pandaFramework, windowFramework);
+	entityManager->add_entity(testPlatform3);
+	testPlatform3->set_pos(-4, 5, 0);
 
 	//Add the player character.
-	PlayerPhysicsDef def;
-	def.capsuleHeight = 0.5f * 1.7f;
-	auto pcPhysics = new PlayerPhysicsComponent("Player", windowFramework.get_render(), physicsManager, def);
+	auto pcPhysics = new PlayerPhysicsComponent("Player", windowFramework.get_render(), physicsManager, 0.5f, 0.5f * 1.7f, 0.1f, 6.0f, 10.0f, 8.0f);
 	auto pcRender = new AnimatedRenderComponent(pcPhysics->get_node_path(), windowFramework, "Assets/Player/LilPiggy.bam", LVector3f(0, 0, -0.5f * 1.7f));
 	auto testPC = std::make_shared<Entity>(pcPhysics, pcRender);
 	auto pcInput = new PlayerInputComponent(pandaFramework, windowFramework);
-	pcInput->attach(testPC);
+	pcInput->attach(testPC.get());
 	entityManager->add_entity(testPC);
 	testPC->set_pos(0, 0, 2);
 

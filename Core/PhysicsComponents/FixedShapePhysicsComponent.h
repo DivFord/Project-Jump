@@ -18,6 +18,7 @@ class FixedShapePhysicsComponent : public PhysicsComponent
 
 public:
 	FixedShapePhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, ShapeDef shape);
+	FixedShapePhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, ComponentDef* def);
 
 	NodePath get_node_path() override
 	{

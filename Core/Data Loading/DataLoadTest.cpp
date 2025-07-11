@@ -10,7 +10,7 @@
 DataLoadTest::DataLoadTest(bool printTokens)
 {
 	Tokeniser tokeniser;
-	tokeniser.process_file("Player.txt");
+	tokeniser.process_file("Platform.txt");
 
 	if (printTokens)
 	{

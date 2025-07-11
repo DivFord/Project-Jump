@@ -43,3 +43,15 @@ FixedShapePhysicsComponent::FixedShapePhysicsComponent(std::string entityName, N
 	nodePath = render.attach_new_node(rigidbody);
 	physicsManager->attach(rigidbody);
 };
+
+FixedShapePhysicsComponent::FixedShapePhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, ComponentDef* def)
+{
+	//TODO: SUPPORT MULTIPLE SHAPES.
+	ShapeDef shape = def->get_shape(0);
+	PT(BulletShape) bulletShape = make_shape(shape);
+	PT(BulletRigidBodyNode) rigidbody = new BulletRigidBodyNode(entityName.c_str());
+	rigidbody->add_shape(bulletShape, TransformState::make_pos(shape.pos));
+
+	nodePath = render.attach_new_node(rigidbody);
+	physicsManager->attach(rigidbody);
+};

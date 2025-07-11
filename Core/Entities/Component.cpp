@@ -7,7 +7,7 @@ Component::Component()
 	this->entity = nullptr;
 };
 
-void Component::attach(SP<Entity> entity)
+void Component::attach(Entity* entity)
 {
 	this->entity = entity;
 	entity->components.push_back(this);

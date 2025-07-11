@@ -11,27 +11,37 @@
 
 const static float downRayDist = 1.0f;
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, PlayerPhysicsDef def)
+PlayerPhysicsComponent::PlayerPhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, float radius, float height, float stepHeight, float speed, float accel, float deccel)
 {
 	this->physicsManager = physicsManager;
-	capsule = new BulletCapsuleShape(def.capsuleRadius, def.capsuleHeight);
-	charControl = new PlatformerControllerNode(capsule, def.stepHeight, entityName.c_str());
+
+	capsule = new BulletCapsuleShape(radius, height);
+	charControl = new PlatformerControllerNode(capsule, stepHeight, entityName.c_str());
 
 	nodePath = render.attach_new_node(charControl);
 	physicsManager->attach(charControl);
 
-	maxSpeed = def.maxSpeed;
-	acceleration = def.acceleration;
-	decceleration = def.decceleration;
-	currentMove = LVector2f(0);
-	targetMove = LVector2f(0);
-	prevPos = LVector3(0);
-	prevSpeed = 0;
-
+	maxSpeed = speed;
+	acceleration = accel;
+	decceleration = deccel;
 	gravity = physicsManager->get_gravity().get_z();
-	currentVerticalVelocity = 0;
-	jumpInputTimer = 0;
-	jumpInputLeeway = 0.1f;
+}
+
+PlayerPhysicsComponent::PlayerPhysicsComponent(std::string entityName, NodePath render, PT(GamePhysicsManager) physicsManager, ComponentDef* def)
+{
+	this->physicsManager = physicsManager;
+
+	ShapeDef shape = def->get_shape();
+	capsule = new BulletCapsuleShape(shape.width, shape.height);
+	charControl = new PlatformerControllerNode(capsule, def->get_float(ComponentDef::FloatID::STEP_HEIGHT), entityName.c_str());
+
+	nodePath = render.attach_new_node(charControl);
+	physicsManager->attach(charControl);
+
+	maxSpeed = def->get_float(ComponentDef::FloatID::SPEED);
+	acceleration = def->get_float(ComponentDef::FloatID::ACCEL);
+	decceleration = def->get_float(ComponentDef::FloatID::DECCEL);
+	gravity = physicsManager->get_gravity().get_z();
 };
 
 void PlayerPhysicsComponent::update(double deltaT)

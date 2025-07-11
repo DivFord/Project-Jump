@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <vector>
 
 #include "../ComponentDef.h"
@@ -35,7 +34,20 @@ struct AnimatedRenderDef : public ComponentDef
 		delete animDef;
 	}
 
-	ComponentDef::Type get_type() override { return ComponentDef::Type::ANIMATED_RENDER; };
+	ComponentDef::Type get_type() const override { return ComponentDef::Type::ANIMATED_RENDER; };
+	std::string get_type_str() const override { return "AnimatedRenderDef"; };
+
+	std::string get_file_name() const override { return fileName; };
+
+	LVector3f get_vector3(Vector3ID id) const override
+	{
+		if (id == Vector3ID::POS)
+			return pos;
+		std::cout << "Vector3ID " << (int)id << " not recognised by AnimatedRenderDef.";
+		return LVector3f(0);
+	};
+
+	AnimDef* get_anim_def() const override { return animDef; };
 
 	virtual std::ostream& output(std::ostream& os) const override
 	{

@@ -9,6 +9,7 @@
 #include "../Entities/RenderComponent.h"
 #include "../Animation/AnimGraph.h"
 #include "../Animation/InterpolationFunctions.h"
+#include "../Data Loading/Component Defs/ComponentDef.h"
 
 class WindowFramework;
 
@@ -37,13 +38,14 @@ class AnimatedRenderComponent : public RenderComponent
 	float targetRotation = 0.0f;
 	AnimControlCollection anims;
 	std::vector<PartBundle*> parts;
-	AnimGraph* animGraph;
+	AnimGraph* animGraph = nullptr;
 	std::unordered_map<Message::MessageType, WeightBinding> weightBindings;
 
 	void load_bundles(NodePath path);
 
 public:
 	AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset = LVector3f(0));
+	AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, ComponentDef* def);
 	~AnimatedRenderComponent()
 	{
 		delete animGraph;
