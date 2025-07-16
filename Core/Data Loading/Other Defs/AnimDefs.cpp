@@ -26,6 +26,38 @@ AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 
 	throw DataLoadingException::bad_value(current);
 };
+
+std::string AnimDef::get_anim_name() const
+{
+	std::cout << "The get_anim_name method is not implemented on " << get_type_str() << "!";
+	return "";
+};
+
+bool AnimDef::get_looping() const
+{
+	std::cout << "The get_looping method is not implemented on " << get_type_str() << "!";
+	return false;
+};
+
+AnimWeightName AnimDef::get_weight_name() const
+{
+	std::cout << "The get_weight_name method is not implemented on " << get_type_str() << "!";
+	return AnimWeightName::FREE_1;
+};
+
+int AnimDef::child_count() const { return 0; };
+AnimDef* AnimDef::get_child(int index) const
+{
+	std::cout << "The get_child method is not implemented on " << get_type_str() << "!";
+	return nullptr;
+};
+
+int AnimDef::transition_count() const { return 0; };
+TransitionDef* AnimDef::get_transition(int index) const
+{
+	std::cout << "The get_transition method is not implemented on " << get_type_str() << "!";
+	return nullptr;
+}
 #pragma endregion
 
 #pragma region SimpleAnimDef
@@ -58,6 +90,16 @@ BlendDef::BlendDef(Tokeniser& tokeniser)
 	tokeniser.pass_bracket(")", true);
 };
 
+AnimDef* BlendDef::get_child(int index) const
+{
+	if (index == 0)
+		return leftAnim;
+	if (index == 1)
+		return rightAnim;
+	std::cout << "Blend Def only has two children. Index " << index << " is not valid.";
+	return nullptr;
+};
+
 std::ostream& BlendDef::output(std::ostream& os) const
 {
 	os << "Blend (\n" << leftAnim << '\n' << rightAnim << '\n' << anim_weight_to_str(weightName) << "\n)";
@@ -65,8 +107,8 @@ std::ostream& BlendDef::output(std::ostream& os) const
 };
 #pragma endregion
 
-#pragma region StateMachineDef
-StateMachineDef::Transition::Transition(Tokeniser& tokeniser)
+#pragma region TransitionDef
+TransitionDef::TransitionDef(Tokeniser& tokeniser)
 {
 	tokeniser.pass_bracket("(");
 	fromState = VariableLoader::load_int(tokeniser);
@@ -82,24 +124,26 @@ StateMachineDef::Transition::Transition(Tokeniser& tokeniser)
 	tokeniser.pass_bracket(")", true);
 };
 
-std::ostream& operator<<(std::ostream& os, const StateMachineDef::Transition& def)
+std::ostream& operator<<(std::ostream& os, const TransitionDef& def)
 {
 	os << "Transition (" << def.fromState << "->" << def.toState << ", "
 		<< anim_weight_to_str(def.weightName) << " " << def.triggerComparator << " " << def.triggerValue
 		<< ", " << def.transitionTime << " seconds)";
 	return os;
 }
+#pragma endregion
 
+#pragma region StateMachineDef
 StateMachineDef::StateMachineDef(Tokeniser& tokeniser)
 {
 	states = new std::vector<AnimDef*>;
-	transitions = new std::vector<Transition>;
+	transitions = new std::vector<TransitionDef>;
 	Token current = tokeniser.pass_bracket("(");
 	while (current.type == Token::Type::CLASS_NAME)
 	{
 		std::cout << current.value << '\n';
 		if (current.value == "Transition")
-			transitions->push_back(Transition(tokeniser));
+			transitions->push_back(TransitionDef(tokeniser));
 		else
 			states->push_back(AnimDef::load_anim(tokeniser));
 		current = tokeniser.pass_separator();
@@ -114,6 +158,26 @@ StateMachineDef::~StateMachineDef()
 	}
 	delete states;
 	delete transitions;
+};
+
+AnimDef* StateMachineDef::get_child(int index) const
+{
+	if (index < 0 || index >= states->size())
+	{
+		std::cout << "Index " << index << " is out of bounds for StateMachineDef states.";
+		return nullptr;
+	}
+	return states->at(index);
+};
+
+TransitionDef* StateMachineDef::get_transition(int index) const
+{
+	if (index < 0 || index >= transitions->size())
+	{
+		std::cout << "Index " << index << " is out of bounds for StateMachineDef transitions.";
+		return nullptr;
+	}
+	return &(transitions->at(index));
 };
 
 std::ostream& StateMachineDef::output(std::ostream& os) const
