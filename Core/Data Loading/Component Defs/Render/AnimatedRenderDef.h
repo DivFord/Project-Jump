@@ -49,6 +49,17 @@ struct AnimatedRenderDef : public ComponentDef
 
 	AnimDef* get_anim_def() const override { return animDef; };
 
+	int weight_binding_count() const override { return weightBindings.size(); };
+	WeightBindingDef get_weight_binding(int index) const override
+	{
+		if (index < 0 || index >= weightBindings.size())
+		{
+			std::cout << "AnimatedRenderDef: Index " << index << " out of bounds.";
+			return WeightBindingDef();
+		}
+		return weightBindings[index];
+	};
+
 	virtual std::ostream& output(std::ostream& os) const override
 	{
 		os << "AnimatedRenderDef { " << fileName << '\n' << pos << '\n'

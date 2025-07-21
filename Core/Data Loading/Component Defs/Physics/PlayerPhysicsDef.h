@@ -20,42 +20,38 @@ struct PlayerPhysicsDef : public ComponentDef
 	PlayerPhysicsDef(Tokeniser& tokeniser)
 	{
 		Token current = tokeniser.pass_bracket("{");
+		
+		float capsuleRadius = 0.5f;
+		float capsuleHeight = 1.0f;
+
 		while (current.type == Token::Type::VAR_NAM)
 		{
+			std::cout << current.print() << '\n';
 			std::string varName = current.value;
-			current = tokeniser.get_next();
-			Token nameToken = current;
+			tokeniser.get_next();
 			
-			if (current.value != "=")
-				throw DataLoadingException::value_mismatch(current, "=");
-			current = tokeniser.get_next();
+			float varVal = VariableLoader::load_float(tokeniser);
 
-			if (current.type != Token::Type::NUMBER)
-				throw DataLoadingException::value_mismatch(current, "number");
-			float varVal = std::stof(current.value);
-
-			float capsuleRadius = 0.5f;
-			float capsuleHeight = 1.0f;
-
-			if (varName == "capsuleRadius")
+			if (varName == "capsuleRadius:")
 				capsuleRadius = varVal;
-			else if (varName == "capsuleHeight")
+			else if (varName == "capsuleHeight:")
 				capsuleHeight = varVal;
-			else if (varName == "stepHeight")
+			else if (varName == "stepHeight:")
 				stepHeight = varVal;
-			else if (varName == "maxSpeed")
+			else if (varName == "maxSpeed:")
 				maxSpeed = varVal;
-			else if (varName == "acceleration")
+			else if (varName == "acceleration:")
 				acceleration = varVal;
-			else if (varName == "decceleration")
+			else if (varName == "decceleration:")
 				decceleration = varVal;
 			else
-				throw DataLoadingException::bad_value(nameToken);
-
-			capsule = ShapeDef(ShapeDef::Type::CAPSULE, capsuleRadius, capsuleHeight);
+				throw DataLoadingException::bad_value(current);
 
 			current = tokeniser.pass_separator();
 		}
+
+		capsule = ShapeDef(ShapeDef::Type::CAPSULE, capsuleRadius, capsuleHeight);
+
 		tokeniser.pass_bracket("}");
 	};
 

@@ -29,7 +29,6 @@ AnimDef* AnimDef::load_anim(Tokeniser& tokeniser)
 
 std::string AnimDef::get_anim_name() const
 {
-	std::cout << "The get_anim_name method is not implemented on " << get_type_str() << "!";
 	return "";
 };
 
@@ -215,15 +214,31 @@ WeightBindingDef::WeightBindingDef(Tokeniser& tokeniser)
 {
 	tokeniser.pass_bracket("(");
 	messageType = VariableLoader::load_message(tokeniser);
+	
 	tokeniser.pass_separator();
 	weightName = VariableLoader::load_anim_weight(tokeniser);
+	
+	Token current = tokeniser.pass_separator();
+	if (current.type == Token::Type::VAR_NAM)
+		interpolation = VariableLoader::load_interpolation(tokeniser);
+	
+	current = tokeniser.pass_separator();
+	if (current.type == Token::Type::NUMBER)
+		min = VariableLoader::load_float(tokeniser);
+	
+	current = tokeniser.pass_separator();
+	if (current.type == Token::Type::NUMBER)
+		max = VariableLoader::load_float(tokeniser);
+
 	tokeniser.pass_bracket(")", true);
 };
 
 std::ostream& operator<<(std::ostream& os, const WeightBindingDef& def)
 {
 	os << "WeightBinding (" << Message::message_to_str(def.messageType)
-		<< ", " << anim_weight_to_str(def.weightName) << ")";
+		<< ", " << anim_weight_to_str(def.weightName) << ", "
+		<< InterpolationFunctions::interpolation_to_str(def.interpolation) << ", "
+		<< def.min << ", " << def.max << ")";
 	return os;
 };
 #pragma endregion

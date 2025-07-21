@@ -1,8 +1,11 @@
 Player {
 	PlayerPhysicsComponent {
-		capsuleRadius = 0.5,
-		stepHeight = 0.5,
-		maxSpeed = 10
+		capsuleRadius: 0.5,
+		capsuleHeight: 0.5 * 1.7,
+		stepHeight: 0.1,
+		maxSpeed: 6,
+		acceleration: 10,
+		decceleration: 8
 	}
 
 	AnimatedRenderComponent {
@@ -22,8 +25,8 @@ Player {
 				VERT_SPEED
 			),
 				
-			Transition(0,1, GROUND_DIST > 0.05, 0.1),
-			Transition(1,0, GROUND_DIST < 0.03, 0.1)
+			Transition(0,1, GROUND_DIST > 0.5, 0.1),
+			Transition(1,0, GROUND_DIST < 0.3, 0.1)
 		),
 
 		WeightBind(MOVE_SPEED, MOVE_SPEED, LINEAR),

@@ -159,6 +159,24 @@ Message::MessageType VariableLoader::load_message(Tokeniser& tokeniser)
 }
 #pragma endregion
 
+#pragma region Load Interpolation
+InterpolationFunctions::Type VariableLoader::load_interpolation(Tokeniser& tokeniser)
+{
+	Token current = tokeniser.get_current();
+	if (current.type != Token::Type::VAR_NAM)
+		throw DataLoadingException::value_mismatch(current, "variable name (interpolation type)");
+	try {
+		auto type = InterpolationFunctions::str_to_interpolation(current.value);
+		tokeniser.advance();
+		return type;
+	}
+	catch (...)
+	{
+		throw DataLoadingException::bad_value(current);
+	}
+}
+#pragma endregion
+
 #pragma region Load Vector
 LVector3f VariableLoader::load_vector(Tokeniser& tokeniser)
 {

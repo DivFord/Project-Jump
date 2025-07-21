@@ -44,6 +44,11 @@ void StateMachineAnimNode::add_transition(int from, int to, AnimWeightName trigg
 	transitions[from].push_back(Transition(triggerWeight, triggerComparator, triggerValue, to, transitionTime));
 };
 
+void StateMachineAnimNode::add_transition(int from, int to, AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, float transitionTime)
+{
+	transitions[from].push_back(Transition(triggerWeight, triggerComparator, triggerValue, to, transitionTime));
+};
+
 void StateMachineAnimNode::update(float deltaT)
 {
 	check_triggers();

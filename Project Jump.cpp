@@ -13,29 +13,39 @@
 
 int main(int argc, char* argv[])
 {
-    //DataLoadTest dataTest(true);
+    try {
+        //DataLoadTest dataTest(true);
 
-    InitNewTypes();
+        InitNewTypes();
 
-    //Open a new window framework.
-    PandaFramework framework;
-    framework.open_framework(argc, argv);
+        //Open a new window framework.
+        PandaFramework framework;
+        framework.open_framework(argc, argv);
 
-    //Set the window title and size, then open the window.
-    WindowProperties windowProps;
-    windowProps.set_size(1000, 750);
-    //windowProps.set_title(std::string());//BUG: WINDOW TITLE IS GETTING SURROUNDED WITH JUNK CHARACTERS.
-    //std::cout << windowProps.get_title() << '\n'; //BUG: CAUSES MEMORY VIOLATION.
-    WindowFramework* window = framework.open_window(windowProps, 0);
+        //Set the window title and size, then open the window.
+        WindowProperties windowProps;
+        windowProps.set_size(1000, 750);
+        //windowProps.set_title(std::string());//BUG: WINDOW TITLE IS GETTING SURROUNDED WITH JUNK CHARACTERS.
+        //std::cout << windowProps.get_title() << '\n'; //BUG: CAUSES MEMORY VIOLATION.
+        WindowFramework* window = framework.open_window(windowProps, 0);
 
-    //Create the game!
-    Game game(framework, *window);
+        //Create the game!
+        Game game(framework, *window);
 
-    //Run the main loop.
-    framework.main_loop();
+        //Run the main loop.
+        framework.main_loop();
 
-    //Close and exit.
-    framework.close_framework();
+        //Close and exit.
+        framework.close_framework();
+    }
+    catch (std::exception e)
+    {
+        std::cout << "ProjectJump.cpp " << e.what() << '\n';
+    }
+    catch (...)
+    {
+        std::cout << "Unknown Error (Project Jump.cpp)";
+    }
 
     return 0;
 };

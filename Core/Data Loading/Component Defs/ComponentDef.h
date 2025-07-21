@@ -51,6 +51,9 @@ struct ComponentDef
 
 	virtual AnimDef* get_anim_def() const;
 
+	virtual int weight_binding_count() const;
+	virtual WeightBindingDef get_weight_binding(int index = 0) const;
+
 protected:
 	virtual std::ostream& output(std::ostream& os) const = 0;
 

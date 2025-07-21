@@ -6,6 +6,7 @@
 #include "../Tokeniser.h"
 #include "../../Animation/AnimWeightName.h"
 #include "../../Entities/Message.h"
+#include "../../Animation/InterpolationFunctions.h"
 
 struct TransitionDef
 {
@@ -23,9 +24,20 @@ struct TransitionDef
 
 struct AnimDef
 {
+	enum class Type
+	{
+		SIMPLE,
+		BLEND,
+		DRIVEN,
+		STATE_MACHINE,
+	};
+
 	static AnimDef* load_anim(Tokeniser& tokeniser);
 
 	friend std::ostream& operator<<(std::ostream& os, const AnimDef* def);
+
+	virtual Type get_type() const = 0;
+	virtual std::string get_type_str() const = 0;
 
 	virtual std::string get_anim_name() const;
 	virtual bool get_looping() const;
@@ -37,7 +49,6 @@ struct AnimDef
 
 
 protected:
-	virtual std::string get_type_str() const = 0;
 	virtual std::ostream& output(std::ostream& os) const = 0;
 };
 
@@ -48,11 +59,13 @@ struct SimpleAnimDef : public AnimDef
 
 	SimpleAnimDef(Tokeniser& tokeniser);
 
+	virtual Type get_type() const override { return Type::SIMPLE; };
+	virtual std::string get_type_str() const override { return "SimpleAnimDef"; };
+
 	virtual std::string get_anim_name() const override { return animName; };
 	virtual bool get_looping() const override { return looping; };
 
 protected:
-	virtual std::string get_type_str() const override { return "SimpleAnimDef"; };
 	virtual std::ostream& output(std::ostream& os) const override;
 };
 
@@ -64,12 +77,14 @@ struct BlendDef : public AnimDef
 
 	BlendDef(Tokeniser& tokeniser);
 
+	virtual Type get_type() const override { return Type::BLEND; };
+	virtual std::string get_type_str() const override { return "BlendDef"; };
+
 	virtual AnimWeightName get_weight_name() const override { return weightName; };
 	virtual int child_count() const override { return 2; };
 	virtual AnimDef* get_child(int index) const override;
 
 protected:
-	virtual std::string get_type_str() const override { return "BlendDef"; };
 	virtual std::ostream& output(std::ostream& os) const override;
 };
 
@@ -81,13 +96,15 @@ struct StateMachineDef : public AnimDef
 	StateMachineDef(Tokeniser& tokeniser);
 	~StateMachineDef();
 
+	virtual Type get_type() const override { return Type::STATE_MACHINE; };
+	virtual std::string get_type_str() const override { return "StateMachineDef"; };
+
 	virtual int child_count() const override { return states->size(); };
 	virtual AnimDef* get_child(int index) const override;
 	virtual int transition_count() const override { return transitions->size(); };
 	virtual TransitionDef* get_transition(int index) const override;
 
 protected:
-	virtual std::string get_type_str() const override { return "StateMachineDef"; };
 	virtual std::ostream& output(std::ostream& os) const override;
 };
 
@@ -98,19 +115,25 @@ struct DrivenAnimDef : public AnimDef
 
 	DrivenAnimDef(Tokeniser& tokeniser);
 
+	virtual Type get_type() const override { return Type::DRIVEN; };
+	virtual std::string get_type_str() const override { return "DrivenAnimDef"; };
+
 	virtual std::string get_anim_name() const override { return animName; };
 	virtual AnimWeightName get_weight_name() const override { return driverWeight; };
 
 protected:
-	virtual std::string get_type_str() const override { return "DrivenAnimDef"; };
 	virtual std::ostream& output(std::ostream& os) const override;
 };
 
 struct WeightBindingDef
 {
 	Message::MessageType messageType = Message::MessageType::UNSET;
+	InterpolationFunctions::Type interpolation = InterpolationFunctions::Type::LINEAR;
+	float min = 0.0f;
+	float max = 1.0f;
 	AnimWeightName weightName = AnimWeightName::FREE_1;
 
+	WeightBindingDef() {};
 	WeightBindingDef(Tokeniser& tokeniser);
 
 	friend std::ostream& operator<<(std::ostream&, const WeightBindingDef& def);

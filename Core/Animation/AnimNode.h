@@ -4,6 +4,7 @@
 
 #include "AnimWeightName.h"
 #include "CurrentAnim.h"
+#include "../Data Loading/Other Defs/AnimDefs.h"
 
 class AnimGraph;
 
@@ -19,6 +20,8 @@ protected:
 
 public:
 	AnimNode(AnimGraph* graph);
+
+	static AnimNode* load_anim_node(AnimDef* animDef, AnimGraph* graph, const std::unordered_map<std::string, int>& animMapping);
 
 	/// <summary>
 	/// Given the index of an animation clip, returns a 0-1 value indicating

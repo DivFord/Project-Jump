@@ -35,6 +35,17 @@ AnimDef* ComponentDef::get_anim_def() const
 	return nullptr;
 }
 
+int ComponentDef::weight_binding_count() const
+{
+	return 0;
+};
+
+WeightBindingDef ComponentDef::get_weight_binding(int index) const
+{
+	std::cout << "The get_weight_binding method is not implemented on " << get_type_str() << "!";
+	return WeightBindingDef();
+};
+
 std::ostream& operator<<(std::ostream& os, const ComponentDef* def)
 {
 	return def->output(os);

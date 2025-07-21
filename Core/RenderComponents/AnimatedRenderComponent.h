@@ -43,6 +43,9 @@ class AnimatedRenderComponent : public RenderComponent
 
 	void load_bundles(NodePath path);
 
+	void get_anim_indices_recursive(std::unordered_map<std::string, int>& map, AnimDef* animDef);
+	std::unordered_map<std::string, int> get_anim_indices(AnimDef* rootAnim);
+
 public:
 	AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset = LVector3f(0));
 	AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, ComponentDef* def);

@@ -1,10 +1,27 @@
 #include "AnimatedRenderComponent.h"
 
+#include <unordered_map>
 #include <windowFramework.h>
 #include <auto_bind.h>
 #include <partBundleNode.h>
 
 #include "../Animation/CurrentAnim.h"
+
+void AnimatedRenderComponent::get_anim_indices_recursive(std::unordered_map<std::string, int>& map, AnimDef* animDef)
+{
+	auto animName = animDef->get_anim_name();
+	if (animName.size() > 0 && map.count(animName) == 0)
+		map[animName] = get_anim_index(animName);
+	for (int i = 0; i < animDef->child_count(); i++)
+		get_anim_indices_recursive(map, animDef->get_child(i));
+}
+
+std::unordered_map<std::string, int> AnimatedRenderComponent::get_anim_indices(AnimDef* rootAnim)
+{
+	std::unordered_map<std::string, int> map;
+	get_anim_indices_recursive(map, rootAnim);
+	return map;
+};
 
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, const std::string& modelFilepath, LVector3f offset) : RenderComponent()
 {
@@ -16,11 +33,32 @@ AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFram
 
 AnimatedRenderComponent::AnimatedRenderComponent(NodePath parentNode, WindowFramework& window, ComponentDef* def)
 {
-	model = window.load_model(parentNode, "Assets/" + def->get_file_name() + ".bam");
-	model.set_pos(def->get_vector3());
-	auto_bind(model.node(), anims, ~0);
-	load_bundles(model);
-	//TODO: LOAD ANIM GRAPH.
+	try {
+		model = window.load_model(parentNode, "Assets/" + def->get_file_name() + ".bam");
+		model.set_pos(def->get_vector3());
+		auto_bind(model.node(), anims, ~0);
+		load_bundles(model);
+		auto animMap = get_anim_indices(def->get_anim_def());
+		animGraph = new AnimGraph();
+		animGraph->add_layer(AnimNode::load_anim_node(def->get_anim_def(), animGraph, animMap));
+		for (int i = 0; i < def->weight_binding_count(); i++)
+		{
+			auto weightDef = def->get_weight_binding(i);
+			add_weight_binding(weightDef.messageType, weightDef.weightName, weightDef.interpolation, weightDef.min, weightDef.max);
+		}
+	}
+	catch (std::exception e)
+	{
+		std::cout << e.what() << '\n';
+	}
+	catch (int e)
+	{
+		std::cout << "Error " << e << '\n';
+	}
+	catch (...)
+	{
+		std::cout << "Unknown exception!" << '\n';
+	}
 };
 
 void AnimatedRenderComponent::update(double deltaT)

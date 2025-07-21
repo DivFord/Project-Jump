@@ -43,6 +43,7 @@ public:
 
 	int add_state(AnimNode* animNode);
 	void add_transition(int from, int to, AnimWeightName triggerWeight, Comparator triggerComparator, float triggerValue, float transitionTime = 0.5f);
+	void add_transition(int from, int to, AnimWeightName triggerWeight, std::string triggerComparator, float triggerValue, float transitionTime = 0.5f);
 
 	void update(float deltaT);
 };
