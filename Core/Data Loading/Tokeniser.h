@@ -1,6 +1,5 @@
 #pragma once
 
-#include <fstream>
 #include <unordered_set>
 #include <queue>
 
@@ -8,7 +7,6 @@
 
 class Tokeniser
 {
-	std::ifstream fileStream;
 	std::unordered_set<std::string> classNames;
 	std::queue<Token> output;
 
@@ -20,7 +18,6 @@ public:
 
 	void process_file(std::string filename);
 
-	bool empty();
 	Token get_current();
 	void advance();
 	bool advance_until(Token::Type tokenType, bool currentIncluded = false);

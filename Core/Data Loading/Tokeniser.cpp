@@ -1,6 +1,7 @@
 #include "Tokeniser.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "DataLoadingException.h"
 #include "ComponentLoader.h"
@@ -32,7 +33,7 @@ void Tokeniser::process_file(std::string filename)
 	while (!output.empty())
 		output.pop();
 	//Open the file.
-	fileStream.open(dataPath + filename, std::ifstream::in);
+	std::ifstream fileStream(dataPath + filename, std::ifstream::in);
 	//Read the file line by line.
 	char buffer[bufferSize];
 	int lineNumber = 0;
@@ -48,10 +49,11 @@ inline static bool char_is_number(char character)
 	return (character == '.' || (character >= '0' && character <= '9'));
 };
 
-inline static bool char_breaks_string(char character, bool inQuotes = true)
+inline static bool char_breaks_var_name(char character)
 {
-	return (character == ' ' || character == '\t' || character == '(' || character == ')' || character == '{' || character == '}'
-		|| character == '\0' || (!inQuotes && character == ','));
+	return (character == ' ' || character == '\t'
+		|| character == '(' || character == ')' || character == '{' || character == '}'
+		|| character == '\0' || character == ',');
 };
 
 void Tokeniser::process_line(const char* line, int lineNumber)
@@ -121,7 +123,7 @@ void Tokeniser::process_line(const char* line, int lineNumber)
 
 		else {
 			const char* next = line + 1;
-			while (!char_breaks_string(*next, false))
+			while (!char_breaks_var_name(*next))
 				next++;
 			std::string val(line, next - line);
 			if (val == "TRUE" || val == "FALSE")
@@ -137,11 +139,6 @@ void Tokeniser::process_line(const char* line, int lineNumber)
 #pragma endregion
 
 #pragma region Access
-bool Tokeniser::empty()
-{
-	return output.empty();
-};
-
 Token Tokeniser::get_current()
 {
 	if (output.empty())
