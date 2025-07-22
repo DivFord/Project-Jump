@@ -1,7 +1,12 @@
 #pragma once
 
+#include <memory>
+
 #include <asyncTask.h>
-#include <bulletWorld.h>
+#include <bulletClosestHitRayResult.h>
+#include <bulletClosestHitSweepResult.h>
+
+class BulletShape;
 
 /// <summary>
 /// A class to set up the Bullet physics world,
@@ -9,11 +14,12 @@
 /// </summary>
 class GamePhysicsManager : public AsyncTask
 {
-	PT(BulletWorld) bulletWorld;
-	NodePath debug;
+	struct Impl;
+	std::unique_ptr<Impl> pimpl;
 
 public:
 	GamePhysicsManager();
+	~GamePhysicsManager();
 	ALLOC_DELETED_CHAIN(GamePhysicsManager);
 
 	DoneStatus do_task() override;
