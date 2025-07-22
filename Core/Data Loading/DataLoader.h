@@ -1,14 +1,19 @@
 #pragma once
 
+#include <memory>
 #include <string>
-#include <unordered_map>
 
-#include "EntityDef.h"
+class EntityDef;
 
 class DataLoader
 {
-	std::unordered_map<std::string, EntityDef*> loadedEntities{};
+	class Impl;
+
+	std::unique_ptr<Impl> pimpl;
 
 public:
+	DataLoader();
+	~DataLoader();
+
 	EntityDef* load_entity(std::string fileName, bool storeData);
 };
